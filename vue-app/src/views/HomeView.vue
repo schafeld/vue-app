@@ -1,7 +1,7 @@
 <template>
   <div class="home-view">
     <h1>Welcome to HomeView</h1>
-    <a href="/projects">Projects</a>
+    <RouterLink to="/projects">Projects</RouterLink>
   </div>
 </template>
 

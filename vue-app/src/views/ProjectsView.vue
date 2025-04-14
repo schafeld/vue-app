@@ -1,7 +1,7 @@
-<template lang="">
+<template>
   <div class="projects-view">
     <h1>Projects</h1>
-    <a href="/">Back to Home</a>
+    <RouterLink to="/">Back to Home</RouterLink>
   </div>
 </template>
 
