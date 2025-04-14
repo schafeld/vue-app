@@ -17,7 +17,7 @@ npm install
 npm run dev
 ```
 
-Checking for updates.
+Checking for module updates.
 
 ```bash
 npm install -g npm-check-updates
