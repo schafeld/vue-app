@@ -24,3 +24,11 @@ npm install -g npm-check-updates
 ncu -u
 npm install
 ```
+
+## Supabase
+
+[Getting started with Supabase](https://supabase.com/docs/reference/javascript/installing)
+
+```bash
+npm install @supabase/supabase-js
+```
