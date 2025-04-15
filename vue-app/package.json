@@ -15,7 +15,9 @@
     "format": "prettier --write src/",
     "supabase:init": "supabase init",
     "supabase:login": "supabase login",
-    "supabase:link": "supabase link --project-ref yuzzrmawywyywsjlnwff"
+    "supabase:link": "supabase link --project-ref yuzzrmawywyywsjlnwff",
+    "db:migrate:new": "supabase migration new projects-schema",
+    "db:reset": "supabase db reset --linked"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.4",

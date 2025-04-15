@@ -45,7 +45,24 @@ npm install supabase --save-dev
 
 [Initialize a local Supabase project](https://supabase.com/docs/reference/cli/supabase-init)
 
-See [tutotisal](https://vueschool.io/lessons/use-supabase-cli-in-vue-js-and-connect-to-the-remote-project) for more details on how to connect.
+See [tutorial](https://vueschool.io/lessons/use-supabase-cli-in-vue-js-and-connect-to-the-remote-project) for more details on how to connect.
+
+[Supabase migrations](https://supabase.com/docs/reference/cli/supabase-migration-new)
+
+```bash
+// create a new migration in the supabase migrations directory
+supabase migration new <migration-name>
+```
+
+Reset the database to the latest migration.
+
+```bash
+// reset the local database (if one exists) to the latest migration
+supabase db reset
+
+// reset the remote database to the latest migration
+supabase db reset --linked
+```
 
 ## Environment variables
 
