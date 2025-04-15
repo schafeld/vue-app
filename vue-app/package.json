@@ -13,7 +13,9 @@
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
-    "supabase:init": "supabase init"
+    "supabase:init": "supabase init",
+    "supabase:login": "supabase login",
+    "supabase:link": "supabase link --project-ref yuzzrmawywyywsjlnwff"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.4",

@@ -45,6 +45,8 @@ npm install supabase --save-dev
 
 [Initialize a local Supabase project](https://supabase.com/docs/reference/cli/supabase-init)
 
+See [tutotisal](https://vueschool.io/lessons/use-supabase-cli-in-vue-js-and-connect-to-the-remote-project) for more details on how to connect.
+
 ## Environment variables
 
 Convention demands a `VITE_` prefix for environment variables that you want to expose to your _client_-side code too.
