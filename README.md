@@ -64,10 +64,17 @@ supabase db reset
 supabase db reset --linked
 ```
 
+### Faker js
+
+[Faker.js](https://fakerjs.dev/) is used for seeding the database with test data.
+[Localization](https://fakerjs.dev/guide/localization.html) is supported.
+
+```bash
+npm install @faker-js/faker --save-dev
+```
+
 ## Environment variables
 
 Convention demands a `VITE_` prefix for environment variables that you want to expose to your _client_-side code too.
 
-```bash
-
-```
+Secret environment variables are in an .env file outside the project directory (see seed.js).
