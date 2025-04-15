@@ -37,6 +37,14 @@ File-based routing with [Unplugin Vue Router](https://uvr.esm.is/)
 npm install @supabase/supabase-js
 ```
 
+[Supabase local development](https://supabase.com/docs/guides/local-development), e.g. for DB migrations.
+
+```bash
+npm install supabase --save-dev
+```
+
+[Initialize a local Supabase project](https://supabase.com/docs/reference/cli/supabase-init)
+
 ## Environment variables
 
 Convention demands a `VITE_` prefix for environment variables that you want to expose to your _client_-side code too.
