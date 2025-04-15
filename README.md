@@ -1,12 +1,12 @@
 # vue-app
 
-Demo app in Vue (Vue3, SpaBase, CRUD, Pinia, Tailwind,...)
+Demo app in Vue (Vue3, file-based routing, SupaBase, CRUD, Pinia, Tailwind,...)
 
 ## Repo
 
-https://github.com/schafeld/vue-app
+[Schafeld Vue-App repository](https://github.com/schafeld/vue-app)
 
-Work in progress...
+_Work in progress..._
 
 ## Project setup
 
@@ -25,10 +25,22 @@ ncu -u
 npm install
 ```
 
+## Routing
+
+File-based routing with [Unplugin Vue Router](https://uvr.esm.is/)
+
 ## Supabase
 
 [Getting started with Supabase](https://supabase.com/docs/reference/javascript/installing)
 
 ```bash
 npm install @supabase/supabase-js
+```
+
+## Environment variables
+
+Convention demands a `VITE_` prefix for environment variables that you want to expose to your _client_-side code too.
+
+```bash
+
 ```
