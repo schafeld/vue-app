@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue';
+  import { ref } from 'vue';
   import { supabase } from '@/lib/supabaseClient';
 
   interface Project {
@@ -36,34 +36,22 @@
   const loading = ref(true);
   const error = ref<string | null>(null);
 
-  const getProjects = async (): Promise<void> => {
-    try {
-      const { data, error: supabaseError } = await supabase
-        .from('projects')
-        .select('*');
+  (async () => {
+    const { data, error: fetchError } = await supabase
+      .from('projects')
+      .select('*')
+      .order('created_at', { ascending: false });
 
-      if (supabaseError) {
-        throw supabaseError;
-      }
-
+    if (fetchError) {
+      console.error('Error fetching projects:', fetchError);
+      error.value = 'Failed to load projects.';
+    } else {
       projects.value = data as Project[];
-
-      if (projects.value.length === 0) {
-        console.log('No projects found');
-      } else {
-        console.log('Projects:', projects.value);
-      }
-    } catch (err) {
-      console.error('Error fetching projects:', err);
-      error.value = 'Failed to load projects';
-    } finally {
-      loading.value = false;
     }
-  };
+    loading.value = false;
+  })()
 
-  onMounted(() => {
-    getProjects();
-  });
+
 </script>
 
 <style>
