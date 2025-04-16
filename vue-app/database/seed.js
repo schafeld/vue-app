@@ -2,9 +2,7 @@
 // import { faker } from '@faker-js/faker'
 // Custom German locale
 import { fakerDE as faker } from '@faker-js/faker'
-
 import { createClient } from '@supabase/supabase-js'
-
 // # SERVICE_ROLE_KEY is deliberately set in folder outside of the repo, so Copilot never has access to it.
 import { config } from 'dotenv'
 config({ path: '../../.env' })
