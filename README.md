@@ -71,6 +71,19 @@ supabase db reset --linked
 npx supabase gen types typescript --project-id "$PROJECT_REF" --schema public > database.types.ts
 ```
 
+Set up local Supabase db correspondingly to remote db with migration files.
+
+```bash
+npm run db:reset
+npx supabase migration up --linked
+
+// then update types
+npm run supabase:types
+
+// the seed data
+node database/seed.js
+```
+
 ### Faker js
 
 [Faker.js](https://fakerjs.dev/) is used for seeding the database with test data.
