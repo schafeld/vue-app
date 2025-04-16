@@ -5,7 +5,7 @@
     <div class="project-details">
       <h2>Project Details</h2>
       <!-- Add project details here -->
-      <p>Project ID: {{ params.id }}</p>
+      <p>Project ID: {{ params.slug }}</p>
     </div>
   </div>
 </template>
@@ -13,7 +13,7 @@
 <script setup lang="ts">
   import { useRoute } from 'vue-router';
   const route = useRoute();
-  const params = route.params as { id: string };
+  const params = route.params as { slug: string };
 </script>
 
 <style>
