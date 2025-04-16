@@ -51,7 +51,7 @@ import type { Tables } from '../../../database/types';
       console.error('Error fetching projects:', fetchError);
       error.value = 'Failed to load projects.';
     } else {
-      projects.value = data as Project[];
+      projects.value = data as Tables<'projects'>[];
     }
     loading.value = false;
   })()
