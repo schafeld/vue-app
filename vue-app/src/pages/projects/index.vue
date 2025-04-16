@@ -6,9 +6,11 @@
     <div v-else-if="error">{{ error }}</div>
     <ul v-else>
       <li v-for="project in projects" :key="project.id">
-        <h2>{{ project.name }}</h2>
-        <p>{{ project.description }}</p>
-        <p>Created at: {{ new Date(project.created_at).toLocaleDateString() }}</p>
+        <h2>
+          <RouterLink :to="`/projects/${project.slug}`">{{ project.name }}</RouterLink>
+        </h2>
+        <p>Status: {{ project.status }}</p>
+        <p>Created at: {{ new Date(String(project.created_at)).toLocaleDateString() }}</p>
       </li>
       <li v-if="projects.length === 0">
         <p>No projects found.</p>
@@ -23,16 +25,19 @@
 
 <script setup lang="ts">
   import { ref } from 'vue';
-  import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/lib/supabaseClient';
+import type { Tables } from '../../../database/types';
 
-  interface Project {
-    id: number;
-    name: string;
-    description: string;
-    created_at: string;
-  }
+  // interface Project {
+  //   id: number;
+  //   name: string;
+  //   slug: string;
+  //   description: string;
+  //   created_at: string;
+  // }
 
-  const projects = ref<Project[]>([]);
+// const projects = ref<Project[]>([]);
+  const projects = ref<Tables<'projects'>[]>([]);
   const loading = ref(true);
   const error = ref<string | null>(null);
 

@@ -64,6 +64,13 @@ supabase db reset
 supabase db reset --linked
 ```
 
+[Creating database types](https://supabase.com/dashboard/project/yuzzrmawywyywsjlnwff/api)
+[Generating Typescript types](https://supabase.com/docs/guides/api/rest/generating-types)
+
+```bash
+npx supabase gen types typescript --project-id "$PROJECT_REF" --schema public > database.types.ts
+```
+
 ### Faker js
 
 [Faker.js](https://fakerjs.dev/) is used for seeding the database with test data.
