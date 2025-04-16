@@ -36,7 +36,7 @@ import type { Tables } from '../../../database/types';
   //   created_at: string;
   // }
 
-// const projects = ref<Project[]>([]);
+  // const projects = ref<Project[]>([]);
   const projects = ref<Tables<'projects'>[]>([]);
   const loading = ref(true);
   const error = ref<string | null>(null);
