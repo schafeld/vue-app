@@ -7,6 +7,9 @@
     <p>
       <RouterLink to="/tasks">Go to Tasks</RouterLink>
     </p>
+    <p>
+      <RouterLink to="/builder">Go to Builder</RouterLink>
+    </p>
   </div>
 </template>
 
