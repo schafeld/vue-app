@@ -13,7 +13,8 @@ https://vueschool.io/lessons/getting-started-with-shadcn-ui-and-vuejs
 https://github.com/vueschool/vuejs-masterclass-2024-edition/branches/all?query=&page=5
 https://supabase.com/dashboard/project/yuzzrmawywyywsjlnwff/editor
 
-Picked up again 2025-05-17:
+Picked up again 2025-05-17, continue at:
+https://vueschool.io/lessons/prepare-the-vue-app-layout-with-tailwindcss
 
 ## Project setup
 
@@ -116,3 +117,23 @@ Secret environment variables are in an .env file outside the project directory (
 npm install tailwindcss @tailwindcss/vite
 # add files according to https://www.shadcn-vue.com/docs/installation/vite.html
 ```
+
+## Builder.io integration
+
+[Builder.io](https://www.builder.io/) is a headless CMS that allows you to create and manage content for your Vue.js application. It provides a visual editor for building pages and components, which can be integrated into your Vue app.
+
+### Builder.io for Vue
+
+https://www.builder.io/c/docs/integrating-builder-pages
+
+On my Mac I had to downgrade Node.js to 20.x.x to get the Builder.io SDK working.
+
+```bash
+nvm use 20
+
+npm install @builder.io/sdk-vue
+```
+
+[The public key is _not_ needed to be kept secret](https://www.builder.io/c/docs/using-your-api-key)
+
+Now [integrate Builder content into your Vue app](https://www.builder.io/c/docs/integrating-builder-pages#add-a-builder-component-to-your-app).
