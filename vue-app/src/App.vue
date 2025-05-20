@@ -17,6 +17,10 @@ console.log( supabase);
         <RouterLink to="/tasks" class="mr-4">Tasks</RouterLink>
         <RouterLink to="/builder" class="mr-4">Builder</RouterLink>
       </div>
+      <form class="w-full max-w-96">
+      <input class="w-full pl-8 bg-background" type="text" placeholder="Search ..." />
+    </form>
+    <div class="w-8 h-8 rounded-full bg-white"></div>
     </nav>
     <RouterView />
     <div v-if="route.path !== '/'" class="mt-5 flex flex-col items-center">
