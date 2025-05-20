@@ -2,7 +2,9 @@ import { createClient } from '@supabase/supabase-js'
 import type { Database } from '../../database/types'
 
 // Create a single supabase client for interacting with your database
-// export const supabase = createClient('https://yuzzrmawywyywsjlnwff.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1enpybWF3eXd5eXdzamxud2ZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ2NTI0NjMsImV4cCI6MjA2MDIyODQ2M30.09HN4td3EgBWQNcvJhXPme5pGzG0n3pYaWDTzFVjVm8')
+// export const supabase = createClient('your Supabase URL goes here', 'your Supabase anon-public key goes here')
+// SERVICE_ROLE_KEY is deliberately set in folder outside of the repo (see /database/seed.js), so Copilot never has access to it and it doesn't get pushed to repository by accident.
+// https://supabase.com/dashboard/project/yuzzrmawywyywsjlnwff/settings/api
 
 export const supabase = createClient<Database>(
   import.meta.env.VITE_SUPABASE_URL,
