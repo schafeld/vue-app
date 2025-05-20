@@ -17,9 +17,9 @@
       </li>
     </ul>
 
-    <p>
+    <!-- <p>
       <RouterLink to="/">Back to Home</RouterLink>
-    </p>
+    </p> -->
   </div>
 </template>
 

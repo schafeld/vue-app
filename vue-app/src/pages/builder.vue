@@ -22,14 +22,15 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Content
-    v-if="canShowContent"
-    :model="model"
-    :content="content"
-    :api-key="apiKey"
-  />
-  <div v-else>Content not Found</div>
-  <p>
-    <RouterLink to="/">Back to Home</RouterLink>
-  </p>
+  <div class="flex flex-col items-center justify-center">
+    <h1 class="text-2xl font-bold">Builder.io Page</h1>
+    <p class="mt-4 text-gray-600">This is a page built with Builder.io</p>
+    <Content
+      v-if="canShowContent"
+      :model="model"
+      :content="content"
+      :api-key="apiKey"
+    />
+    <div v-else>Content not Found</div>
+  </div>
 </template>
