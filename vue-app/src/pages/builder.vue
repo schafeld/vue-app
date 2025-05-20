@@ -29,4 +29,7 @@ onMounted(async () => {
     :api-key="apiKey"
   />
   <div v-else>Content not Found</div>
+  <p>
+    <RouterLink to="/">Back to Home</RouterLink>
+  </p>
 </template>
