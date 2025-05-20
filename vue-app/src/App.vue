@@ -9,6 +9,15 @@ console.log( supabase);
 
 <template>
   <main>
+    <nav class="flex justify-between items-center p-4 border-b bg-muted/40 text-white">
+      <h1 class="text-xl font-bold">Olli's Vue App</h1>
+      <div>
+        <RouterLink to="/" class="mr-4">Home</RouterLink>
+        <RouterLink to="/projects" class="mr-4">Projects</RouterLink>
+        <RouterLink to="/tasks" class="mr-4">Tasks</RouterLink>
+        <RouterLink to="/builder" class="mr-4">Builder</RouterLink>
+      </div>
+    </nav>
     <RouterView />
     <div v-if="route.path !== '/'" class="mt-5 flex flex-col items-center">
       <RouterLink to="/">
