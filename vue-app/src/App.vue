@@ -2,6 +2,7 @@
 import { supabase } from '@/lib/supabaseClient';
 import { Button } from '@/components/ui/button'
 import { useRoute } from 'vue-router';
+import Input from './components/ui/input/Input.vue';
 
 const route = useRoute();
 console.log( supabase);
@@ -18,7 +19,7 @@ console.log( supabase);
         <RouterLink to="/builder" class="mr-4">Builder</RouterLink>
       </div>
       <form class="w-full max-w-96">
-      <input class="w-full pl-8 bg-background" type="text" placeholder="Search ..." />
+      <Input class="w-full pl-8 bg-background" type="text" placeholder="Search ..." />
     </form>
     <div class="w-8 h-8 rounded-full bg-white"></div>
     </nav>
