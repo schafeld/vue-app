@@ -14,7 +14,7 @@ https://github.com/vueschool/vuejs-masterclass-2024-edition/branches/all?query=&
 https://supabase.com/dashboard/project/yuzzrmawywyywsjlnwff/editor
 
 Picked up again 2025-05-21, continue at:
-https://vueschool.io/lessons/utilize-shadcn-input-and-dropdown-components
+https://vueschool.io/lessons/create-a-sidebar-and-organize-code-with-vue-components
 
 ## Project setup
 
