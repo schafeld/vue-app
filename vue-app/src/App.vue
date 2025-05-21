@@ -27,7 +27,8 @@ console.log( supabase);
         <RouterLink to="/tasks" class="mr-4">Tasks</RouterLink>
         <RouterLink to="/builder" class="mr-4">Builder</RouterLink>
       </div>
-      <form class="w-full max-w-96">
+      <form class="w-full max-w-96 h-fit">
+        <iconify-icon icon="lucide:search" class="absolute ml-2 mt-2 translate-y-0.5 text-gray-500"></iconify-icon>
       <Input class="w-full pl-8 bg-background" type="text" placeholder="Search ..." />
     </form>
 
