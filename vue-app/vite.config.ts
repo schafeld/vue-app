@@ -11,7 +11,15 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [
     VueRouter(), // Add this line to enable file-based routing
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: element => {
+            return element.startsWith('iconify-icon')
+          }
+        },
+      },
+    }),
     vueDevTools(),
     tailwindcss(),
   ],

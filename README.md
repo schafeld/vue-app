@@ -144,6 +144,16 @@ npm install @builder.io/sdk-vue
 
 Now [integrate Builder content into your Vue app](https://www.builder.io/c/docs/integrating-builder-pages#add-a-builder-component-to-your-app).
 
+## Icons
+
+Lucide icons are used in this project. See [Lucide](https://lucide.dev/) for more details.
+Implemented with [Iconify](https://icon-sets.iconify.design/lucide/), [icons on demand for Vue](https://iconify.design/docs/icon-components/vue/) or rather for future server-side rendering [Iconify Icon web components](https://iconify.design/docs/iconify-icon/).
+E.G. [magnifying glass SVG](https://icon-sets.iconify.design/lucide/?icon-filter=search).
+
+```bash
+npm install iconify-icon
+```
+
 ---
 
 ## Notes about Supabase access
