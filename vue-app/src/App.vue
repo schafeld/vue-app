@@ -11,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 const route = useRoute();
 console.log( supabase);
@@ -32,7 +33,11 @@ console.log( supabase);
 
     <DropdownMenu>
     <DropdownMenuTrigger>
-      <div class="avatar w-8 h-8 rounded-full bg-white"></div>
+      <Avatar class="border border-gray-500">
+        <!-- <AvatarImage src="https://github.com/unovue.png" alt="@unovue" /> -->
+        <AvatarImage src="https://avatars.githubusercontent.com/u/5053821?v=4" alt="Olli"/>
+        <AvatarFallback>CN</AvatarFallback>
+      </Avatar>
     </DropdownMenuTrigger>
     <DropdownMenuContent>
       <DropdownMenuLabel>My Account</DropdownMenuLabel>
