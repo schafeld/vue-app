@@ -114,15 +114,22 @@
 }
 
 @layer base {
-  html {
-    scrollbar-gutter: stable;
+  :root {
+    --scrollbar-width: 0px;
   }
 
-  * {
-    @apply border-border outline-ring/50;
+  html {
+    /* Remove the scrollbar gutter that creates the unwanted gap */
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground;
+    /* prevent open menu to shift header */
+    padding-right: 0 !important;
+  }
+
+  * {
+    @apply border-border outline-ring/50;
   }
 }
