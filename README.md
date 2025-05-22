@@ -8,13 +8,13 @@ Demo app in Vue (Vue3, file-based routing, SupaBase, CRUD, Pinia, Tailwind,...)
 
 _Work in progress..._
 
-TO BE CONTINUED:
+TBC – TO BE CONTINUED:
 https://vueschool.io/lessons/getting-started-with-shadcn-ui-and-vuejs
 https://github.com/vueschool/vuejs-masterclass-2024-edition/branches/all?query=&page=5
 https://supabase.com/dashboard/project/yuzzrmawywyywsjlnwff/editor
 
-Picked up again 2025-05-21, continue at:
-https://vueschool.io/lessons/create-a-sidebar-and-organize-code-with-vue-components
+State 2025-05-21, continue at:
+https://vueschool.io/lessons/extract-a-reusable-vue-component-for-sidebar-links
 
 ## Project setup
 
