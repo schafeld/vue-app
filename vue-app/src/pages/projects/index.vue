@@ -17,9 +17,6 @@
       </li>
     </ul>
 
-    <!-- <p>
-      <RouterLink to="/">Back to Home</RouterLink>
-    </p> -->
   </div>
 </template>
 
@@ -28,15 +25,6 @@
 import { supabase } from '@/lib/supabaseClient';
 import type { Tables } from '../../../database/types';
 
-  // interface Project {
-  //   id: number;
-  //   name: string;
-  //   slug: string;
-  //   description: string;
-  //   created_at: string;
-  // }
-
-  // const projects = ref<Project[]>([]);
   const projects = ref<Tables<'projects'>[]>([]);
   const loading = ref(true);
   const error = ref<string | null>(null);
@@ -60,7 +48,4 @@ import type { Tables } from '../../../database/types';
 </script>
 
 <style>
-.projects-view {
-  text-align: center;
-}
 </style>

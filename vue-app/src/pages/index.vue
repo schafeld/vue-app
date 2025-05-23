@@ -17,7 +17,4 @@
 </script>
 
 <style scoped>
-.home-view {
-  text-align: center;
-}
 </style>

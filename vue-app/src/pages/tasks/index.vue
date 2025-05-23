@@ -16,10 +16,6 @@
         <p>No tasks found.</p>
       </li>
     </ul>
-
-    <!-- <p>
-      <RouterLink to="/">Back to Home</RouterLink>
-    </p> -->
   </div>
 </template>
 
@@ -52,7 +48,4 @@ import type { Tables } from '../../../database/types';
 </script>
 
 <style>
-.tasks-view {
-  text-align: center;
-}
 </style>
