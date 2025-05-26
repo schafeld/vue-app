@@ -165,6 +165,14 @@ E.G. [magnifying glass SVG](https://icon-sets.iconify.design/lucide/?icon-filter
 npm install iconify-icon
 ```
 
+## Auto Imports
+
+[Unplugin Auto Imports](https://github.com/unplugin/unplugin-auto-import) is used to automatically import commonly used functions and components in Vue.js applications.
+
+```bash
+npm install -D unplugin-auto-import
+```
+
 ---
 
 ## Notes about Supabase access
