@@ -26,68 +26,58 @@
   })()
 
 
-  interface Payment {
-    id: string
-    amount: number
-    status: 'pending' | 'processing' | 'success' | 'failed'
-    email: string
-  }
 
-  const payments: Payment[] = [
-    {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com',
-    },
-    {
-      id: '489e1d42',
-      amount: 125,
-      status: 'processing',
-      email: 'example@gmail.com',
-    },
-    // ...
-  ]
-
-
-  const columns: ColumnDef<Payment>[] = [
+  const columns: ColumnDef<Tables<'tasks'>>[] = [
   {
-    accessorKey: 'amount',
-    header: () => h('div', { class: 'text-right' }, 'Amount'),
+    accessorKey: 'name',
+    header: () => h('div', { class: 'text-left' }, 'Name'),
     cell: ({ row }) => {
-      const amount = Number.parseFloat(row.getValue('amount'))
-      const formatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      }).format(amount)
-
-      return h('div', { class: 'text-right font-medium' }, formatted)
+      return h('div', { class: 'text-left font-medium' }, row.getValue('name'));
     },
-  }
+    },
+    {
+      accessorKey: 'status',
+      header: () => h('div', { class: 'text-left' }, 'Status'),
+      cell: ({ row }) => {
+        return h('div', { class: 'text-left' }, row.getValue('status'));
+      },
+    },
+    {
+      accessorKey: 'due_date',
+      header: () => h('div', { class: 'text-left' }, 'Due Date'),
+      cell: ({ row }) => {
+        const dueDate = new Date(row.getValue('due_date'));
+        return h('div', { class: 'text-left' }, dueDate.toLocaleDateString());
+      },
+    },
+    {
+      accessorKey: 'id',
+      header: () => h('div', { class: 'text-left' }, 'Project ID'),
+      cell: ({ row }) => {
+      return h('div', { class: 'text-left' }, row.getValue('id'));
+      },
+    },
+    // {
+    //   accessorKey: 'project_id',
+    //   header: () => h('div', { class: 'text-left' }, 'Project ID'),
+    //   cell: ({ row }) => {
+    //     return h('div', { class: 'text-left' }, row.getValue('project_id'));
+    //   },
+    // },
+    {
+      accessorKey: 'collaborators',
+      header: () => h('div', { class: 'text-left' }, 'Collaborators'),
+      cell: ({ row }) => {
+        const collaborators = row.getValue('collaborators') as string[];
+        return h('div', { class: 'text-left' }, collaborators.join(', '));
+      },
+    },
 ]
 </script>
 
 
 <template>
-  <!-- <div class="tasks-view">
-    <h1>Tasks</h1>
-
-    <div v-if="loading">Loading tasks...</div>
-    <div v-else-if="error">{{ error }}</div>
-    <ul v-else>
-      <li v-for="task in tasks" :key="task.id">
-        <h2>
-          {{ task.name }}
-        </h2>
-        <p>Status: {{ task.status }}</p>
-        <p>Created at: {{ new Date(String(task.created_at)).toLocaleDateString() }}</p>
-      </li>
-      <li v-if="tasks.length === 0">
-        <p>No tasks found.</p>
-      </li>
-    </ul>
-  </div> -->
-  <DataTable :columns="columns" :data="payments" />
+  <DataTable v-if="tasks" :columns="columns" :data="tasks" />
 </template>
 
 <style>
