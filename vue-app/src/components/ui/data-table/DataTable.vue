@@ -62,3 +62,13 @@
     </Table>
   </div>
 </template>
+
+<style scoped type="scss">
+/* TODO: Why aren't Tailwind @apply directives not working in this project? */
+td {
+  padding: 0;
+  & > * {
+    padding: 16px
+  }
+}
+</style>
