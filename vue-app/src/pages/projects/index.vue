@@ -1,29 +1,9 @@
-<template>
-  <div class="projects-view">
-    <h1>Projects</h1>
-
-    <div v-if="loading">Loading projects...</div>
-    <div v-else-if="error">{{ error }}</div>
-    <ul v-else>
-      <li v-for="project in projects" :key="project.id">
-        <h2>
-          <RouterLink :to="`/projects/${project.slug}`">{{ project.name }}</RouterLink>
-        </h2>
-        <p>Status: {{ project.status }}</p>
-        <p>Created at: {{ new Date(String(project.created_at)).toLocaleDateString() }}</p>
-      </li>
-      <li v-if="projects.length === 0">
-        <p>No projects found.</p>
-      </li>
-    </ul>
-
-  </div>
-</template>
-
 <script setup lang="ts">
-  import { ref } from 'vue';
-import { supabase } from '@/lib/supabaseClient';
-import type { Tables } from '../../../database/types';
+  import { h, ref } from 'vue';
+  import { supabase } from '@/lib/supabaseClient';
+  import type { Tables } from '../../../database/types';
+  import type { ColumnDef } from '@tanstack/vue-table';
+  import DataTable from '@/components/ui/data-table/DataTable.vue';
 
   const projects = ref<Tables<'projects'>[]>([]);
   const loading = ref(true);
@@ -45,7 +25,41 @@ import type { Tables } from '../../../database/types';
   })()
 
 
+  const columns: ColumnDef<Tables<'projects'>>[] = [
+    {
+      accessorKey: 'name',
+      header: () => h('div', { class: 'text-left' }, 'Name'),
+      cell: ({ row }) => row.getValue('name'),
+    },
+    {
+      accessorKey: 'status',
+      header: () => h('div', { class: 'text-left' }, 'Status'),
+      cell: ({ row }) => row.getValue('status'),
+    },
+    {
+      accessorKey: 'slug',
+      header: () => h('div', { class: 'text-left' }, 'Slug'),
+      cell: ({ row }) => row.getValue('slug'),
+    },
+    {
+      accessorKey: 'collaborators',
+      header: () => h('div', { class: 'text-left' }, 'Collaborators'),
+      cell: ({ row }) => {
+        const collaborators = row.getValue('collaborators') as string[];
+        return h('div', { class: 'text-left' }, collaborators.join(', '));
+      },
+    },
+    {
+      accessorKey: 'created_at',
+      header: () => h('div', { class: 'text-left' }, 'Created At'),
+      cell: ({ row }) => new Date(row.getValue('created_at')).toLocaleDateString(),
+    },
+  ];
 </script>
+
+<template>
+  <DataTable v-if="projects" :columns="columns" :data="projects" />
+</template>
 
 <style>
 </style>
