@@ -216,3 +216,7 @@ This should allow your application to read data while still using the anonymous 
 For a production app, you'd want more restrictive policies, but this will work for development. You can see more details about RLS policies in the [Supabase documentation](https://supabase.com/docs/guides/auth/row-level-security).
 
 ---
+
+# TODOs / Ideas / Bugs
+
+- [ ] ...
