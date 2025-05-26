@@ -64,11 +64,21 @@
 </template>
 
 <style scoped type="scss">
-/* TODO: Why aren't Tailwind @apply directives not working in this project? */
-td {
+/* TODO: Why aren't Tailwind @apply directives not working properly in this project? */
+/* td {
   padding: 0;
   & > * {
     padding: 16px
+  }
+} */
+
+/* Workaround from: https://vueschool.io/lessons/make-the-data-table-cells-clickable-with-routerlink */
+@reference "@/index.css";
+td {
+  @apply p-0;
+
+  & > * {
+    @apply p-4;
   }
 }
 </style>
