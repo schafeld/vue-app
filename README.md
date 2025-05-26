@@ -14,7 +14,7 @@ https://github.com/vueschool/vuejs-masterclass-2024-edition/branches/all?query=&
 https://supabase.com/dashboard/project/yuzzrmawywyywsjlnwff/editor
 
 State 2025-05-21, continue at:
-https://vueschool.io/lessons/extract-a-reusable-vue-component-for-sidebar-links
+https://vueschool.io/lessons/build-a-vue-js-data-table-component-with-shadcn-and-tanstack
 
 ## Project setup
 
@@ -122,6 +122,17 @@ Adding an [input component](https://www.shadcn-vue.com/docs/components/input.htm
 
 ```bash
 npx shadcn-vue@latest add input
+```
+
+## Tanstack Table
+
+Using [Tanstack Table](https://tanstack.com/table/latest/docs/installation) with the [ShadCDN data table component](https://www.shadcn-vue.com/docs/components/data-table).
+
+```bash
+npm install @tanstack/vue-table
+
+npx shadcn-vue@latest add table
+
 ```
 
 ## Builder.io integration
