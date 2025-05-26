@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { h, ref } from 'vue';
+  import { RouterLink } from 'vue-router';
   import { supabase } from '@/lib/supabaseClient';
   import type { Tables } from '../../../database/types';
   import type { ColumnDef } from '@tanstack/vue-table';
@@ -29,7 +30,9 @@
     {
       accessorKey: 'name',
       header: () => h('div', { class: 'text-left' }, 'Name'),
-      cell: ({ row }) => row.getValue('name'),
+      cell: ({ row }) => {
+        return h(RouterLink, { to: `/projects/${row.original.slug}`, class: 'text-left font-medium hover:bg-muted block w-full'}, () => row.getValue('name'))
+      },
     },
     {
       accessorKey: 'status',
