@@ -13,8 +13,8 @@ https://vueschool.io/lessons/getting-started-with-shadcn-ui-and-vuejs
 https://github.com/vueschool/vuejs-masterclass-2024-edition/branches/all?query=&page=5
 https://supabase.com/dashboard/project/yuzzrmawywyywsjlnwff/editor
 
-State 2025-05-21, continue at:
-https://vueschool.io/lessons/build-a-vue-js-data-table-component-with-shadcn-and-tanstack
+State 2025-05-26, continue at:
+https://vueschool.io/lessons/make-the-data-table-cells-clickable-with-routerlink
 
 ## Project setup
 
