@@ -42,6 +42,12 @@ Router configuration [docs](https://uvr.esm.is/introduction.html#auto-imports) f
 
 https://github.com/unplugin/unplugin-vue-components
 
+## Pinia
+
+[Pinia](https://pinia.vuejs.org/) is the state management library for Vue.js applications, replacing Vuex.
+
+Configure [Pinia for hot module replacement (HMR)](https://pinia.vuejs.org/cookbook/hot-module-replacement.html) in development mode.
+
 ## Supabase
 
 [Getting started with Supabase](https://supabase.com/docs/reference/javascript/installing)

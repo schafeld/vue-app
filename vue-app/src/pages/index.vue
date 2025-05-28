@@ -1,3 +1,9 @@
+<script setup lang="ts">
+  import { usePageStore } from '@/stores/page';
+
+  usePageStore().pageData.title = 'Homepage';
+</script>
+
 <template>
   <div class="home-view">
     <h1>Welcome to HomeView</h1>
@@ -12,9 +18,6 @@
     </p>
   </div>
 </template>
-
-<script setup lang="ts">
-</script>
 
 <style scoped>
 </style>

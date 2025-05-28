@@ -1,7 +1,11 @@
 <script setup lang="ts">
   import { useRoute } from 'vue-router';
+  import { usePageStore } from '@/stores/page';
+  import { storeToRefs } from 'pinia';
 
   const route = useRoute();
+
+  const { pageData } = storeToRefs(usePageStore());
 </script>
 
 <template>
@@ -11,9 +15,7 @@
     <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
       <div class="flex items-center">
         <h1 class="text-lg font-semibold md:text-2xl">
-          <RouterLink :to="route.path" class="text-muted-foreground">
-            {{ route.meta.title }}
-          </RouterLink>
+          {{ pageData.title }}
         </h1>
         </div>
       <slot />

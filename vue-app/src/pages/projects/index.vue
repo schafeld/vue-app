@@ -3,6 +3,9 @@
   import { supabase } from '@/lib/supabaseClient';
   import type { Tables } from '../../../database/types';
   import type { ColumnDef } from '@tanstack/vue-table';
+  import { usePageStore } from '@/stores/page';
+
+  usePageStore().pageData.title = 'Projects';
 
   const projects = ref<Tables<'projects'>[]>([]);
   const loading = ref(true);

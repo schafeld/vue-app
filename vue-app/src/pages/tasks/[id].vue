@@ -1,6 +1,9 @@
 <script setup lang="ts">
   const route = useRoute();
   const params = route.params as { id: string };
+  import { usePageStore } from '@/stores/page';
+
+  usePageStore().pageData.title = 'Single Task View';
 </script>
 
 <template>

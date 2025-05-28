@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import type { BuilderContent } from '@builder.io/sdk-vue';
 import { Content, fetchOneEntry, isPreviewing } from '@builder.io/sdk-vue';
+import { usePageStore } from '@/stores/page';
+
+usePageStore().pageData.title = 'CMS Page with Builder.io';
 
 const content = ref<BuilderContent | null>(null);
 // Add your Public API Key below
