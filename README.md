@@ -38,6 +38,10 @@ npm install
 File-based routing with [Unplugin Vue Router](https://uvr.esm.is/).
 Router configuration [docs](https://uvr.esm.is/introduction.html#auto-imports) for bundler usage.
 
+## On-demand auto-importing for Vue.js components
+
+https://github.com/unplugin/unplugin-vue-components
+
 ## Supabase
 
 [Getting started with Supabase](https://supabase.com/docs/reference/javascript/installing)
