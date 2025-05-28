@@ -3,7 +3,6 @@
   import type { Tables } from '../../../database/types';
   import type { ColumnDef } from '@tanstack/vue-table';
   import { RouterLink } from 'vue-router';
-  import { usePageStore } from '@/stores/page';
 
   usePageStore().pageData.title = 'Tasks';
 

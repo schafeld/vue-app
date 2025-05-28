@@ -1,6 +1,5 @@
 <script setup lang="ts">
   const route = useRoute();
-  import { usePageStore } from '@/stores/page';
 
   usePageStore().pageData.title = '404 Not Found';
 </script>
