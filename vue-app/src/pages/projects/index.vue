@@ -8,7 +8,7 @@
   const loading = ref(true);
   const error = ref<string | null>(null);
 
-  (async () => {
+  const getProjects = async () => {
     const { data, error: fetchError } = await supabase
       .from('projects')
       .select('*')
@@ -21,7 +21,9 @@
       projects.value = data as Tables<'projects'>[];
     }
     loading.value = false;
-  })()
+  }
+
+  await getProjects();
 
 
   const columns: ColumnDef<Tables<'projects'>>[] = [

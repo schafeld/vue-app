@@ -9,7 +9,7 @@
   const loading = ref(true);
   const error = ref<string | null>(null);
 
-  (async () => {
+  const getTasks = async () => {
     const { data, error: fetchError } = await supabase
       .from('tasks')
       .select('*')
@@ -22,8 +22,9 @@
       tasks.value = data as Tables<'tasks'>[];
     }
     loading.value = false;
-  })()
+  }
 
+  await getTasks();
 
 
   const columns: ColumnDef<Tables<'tasks'>>[] = [
