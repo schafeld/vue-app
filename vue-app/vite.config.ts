@@ -23,13 +23,22 @@ export default defineConfig({
         /\.md$/, // .md
       ],
       imports: [
-        // presets
         'vue',
-        // 'vue-router',
         VueRouterAutoImports,
+        {
+          'pinia': [
+            'defineStore',
+            'acceptHMRUpdate',
+            'storeToRefs',
+          ]
+        }
       ],
       dts: true,
       viteOptimizeDeps: true,
+      dirs: [
+        'src/composables',
+        'src/stores',
+      ],
      }),
     vue({
       template: {
