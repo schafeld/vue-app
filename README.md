@@ -14,7 +14,7 @@ https://github.com/vueschool/vuejs-masterclass-2024-edition/branches/all?query=&
 https://supabase.com/dashboard/project/yuzzrmawywyywsjlnwff/editor
 
 State 2025-05-26, continue at:
-https://vueschool.io/lessons/make-the-data-table-cells-clickable-with-routerlink
+https://vueschool.io/lessons/configure-unplugin-auto-import-for-unplugin-vue-router
 
 ## Project setup
 
@@ -35,7 +35,8 @@ npm install
 
 ## Routing
 
-File-based routing with [Unplugin Vue Router](https://uvr.esm.is/)
+File-based routing with [Unplugin Vue Router](https://uvr.esm.is/).
+Router configuration [docs](https://uvr.esm.is/introduction.html#auto-imports) for bundler usage.
 
 ## Supabase
 
@@ -227,4 +228,9 @@ For a production app, you'd want more restrictive policies, but this will work f
 
 # TODOs / Ideas / Bugs
 
-- [ ] ...
+- [ ] Lazy loading of routes, smaller initial bundle size
+- [ ] Add more components from ShadCDN
+- [ ] Add more pages, e.g. a settings page
+- [ ] Add more CRUD operations, e.g. for tasks
+- [ ] Add more tests, e.g. for the Supabase integration
+- [ ] Add more documentation, e.g. for the Supabase integration
