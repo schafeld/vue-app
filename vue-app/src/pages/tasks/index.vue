@@ -1,26 +1,25 @@
 <script setup lang="ts">
-  import { supabase } from '@/lib/supabaseClient';
   import type { Tables } from '../../../database/types';
   import type { ColumnDef } from '@tanstack/vue-table';
   import { RouterLink } from 'vue-router';
+  import { tasksWithProjectsQuery } from '@/utils/supabaseQueries';
+  import type { TasksWithProjects } from '@/utils/supabaseQueries';
 
   usePageStore().pageData.title = 'Tasks';
 
-  const tasks = ref<Tables<'tasks'>[]>([]);
+  const tasks = ref<TasksWithProjects | null>(null);
   const loading = ref(true);
   const error = ref<string | null>(null);
 
   const getTasks = async () => {
-    const { data, error: fetchError } = await supabase
-      .from('tasks')
-      .select('*, projects ( id, name, slug)') // fetching task-related project data
-      .order('created_at', { ascending: false });
+    const { data, error: fetchError } = await tasksWithProjectsQuery;
 
     if (fetchError) {
       console.error('Error fetching tasks:', fetchError);
       error.value = 'Failed to load tasks.';
     } else {
-      tasks.value = data as Tables<'tasks'>[];
+      tasks.value = data || [];
+      error.value = null;
     }
     loading.value = false;
   }

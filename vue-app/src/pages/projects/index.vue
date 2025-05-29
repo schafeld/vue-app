@@ -1,20 +1,18 @@
 <script setup lang="ts">
   import { RouterLink } from 'vue-router';
-  import { supabase } from '@/lib/supabaseClient';
   import type { Tables } from '../../../database/types';
   import type { ColumnDef } from '@tanstack/vue-table';
+  import { projectsQuery } from '@/utils/supabaseQueries';
+  import type { Projects } from '@/utils/supabaseQueries';
 
   usePageStore().pageData.title = 'Projects';
 
-  const projects = ref<Tables<'projects'>[]>([]);
+  const projects = ref<Projects | null>(null);
   const loading = ref(true);
   const error = ref<string | null>(null);
 
   const getProjects = async () => {
-    const { data, error: fetchError } = await supabase
-      .from('projects')
-      .select('*')
-      .order('created_at', { ascending: false });
+    const { data, error: fetchError } = await projectsQuery;
 
     if (fetchError) {
       console.error('Error fetching projects:', fetchError);
