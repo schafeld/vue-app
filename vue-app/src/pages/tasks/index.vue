@@ -13,7 +13,7 @@
   const getTasks = async () => {
     const { data, error: fetchError } = await supabase
       .from('tasks')
-      .select('*')
+      .select('*, projects ( id, name, slug)') // fetching task-related project data
       .order('created_at', { ascending: false });
 
     if (fetchError) {
@@ -51,13 +51,13 @@
         return h('div', { class: 'text-left' }, dueDate.toLocaleDateString());
       },
     },
-    {
-      accessorKey: 'id',
-      header: () => h('div', { class: 'text-left' }, 'Project ID'),
-      cell: ({ row }) => {
-      return h('div', { class: 'text-left' }, row.getValue('id'));
-      },
-    },
+    // {
+    //   accessorKey: 'id',
+    //   header: () => h('div', { class: 'text-left' }, 'Project ID'),
+    //   cell: ({ row }) => {
+    //   return h('div', { class: 'text-left' }, row.getValue('id'));
+    //   },
+    // },
     // {
     //   accessorKey: 'project_id',
     //   header: () => h('div', { class: 'text-left' }, 'Project ID'),
@@ -65,6 +65,14 @@
     //     return h('div', { class: 'text-left' }, row.getValue('project_id'));
     //   },
     // },
+    {
+      accessorKey: 'projects',
+      header: () => h('div', { class: 'text-left' }, 'Project'),
+      cell: ({ row }) => {
+        const project = row.getValue('projects') as { id: string; name: string; slug: string } | null;
+        return h(RouterLink, { to: `/projects/${project?.slug}`, class: 'text-left hover:bg-muted block w-full' }, () => project ? project.name : 'No Project');
+      },
+    },
     {
       accessorKey: 'collaborators',
       header: () => h('div', { class: 'text-left' }, 'Collaborators'),
