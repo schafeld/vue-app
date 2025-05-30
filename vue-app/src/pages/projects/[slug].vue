@@ -5,8 +5,6 @@ import type { SingleProject } from "@/utils/supabaseQueries";
 const router = useRouter();
 const route = useRoute("/projects/[slug]");
 
-usePageStore().pageData.title = "Single Project View";
-
 const goBack = () => {
   // <button @click="goBack" class="hover:underline cursor-pointer">Go Back</button>
   if (router.options.history.state.back) {
@@ -18,6 +16,18 @@ const goBack = () => {
 
 const project = ref<SingleProject | null>(null);
 
+watch(
+  project,
+  (newProject) => {
+    if (newProject && newProject.name) {
+      usePageStore().pageData.title = `Project: ${newProject.name}`;
+    } else {
+      usePageStore().pageData.title = "Project: Loading...";
+    }
+  },
+  { immediate: true }
+);
+
 const getProject = async () => {
   const { data, error } = await singleProjectQuery(route.params.slug as string);
 
@@ -28,13 +38,7 @@ const getProject = async () => {
   }
 };
 
-await getProject(); //.then(() => {
-//   if (!project.value) {
-//     console.error("Project not found");
-//   } else {
-//     console.log("Project data:", project.value);
-//   }
-// });
+await getProject();
 </script>
 
 <template>
