@@ -20,7 +20,7 @@
 </script>
 
 <template>
-  <div class="border rounded-md">
+  <div class="data-table">
     <Table>
       <TableHeader>
         <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
@@ -55,17 +55,20 @@
   </div>
 </template>
 
-<style scoped type="scss">
-/* TODO: Why aren't Tailwind @apply directives not working properly in this project? */
+<style scoped>
+/* TODO: Why aren't Tailwind @apply directives not working properly (without import or reference) in this project? */
 /* td {
   padding: 0;
   & > * {
     padding: 16px
   }
 } */
+/*
+  Workaround from: https://vueschool.io/lessons/make-the-data-table-cells-clickable-with-routerlink
+  @reference "@/index.css";
+*/
+@import "tailwindcss";
 
-/* Workaround from: https://vueschool.io/lessons/make-the-data-table-cells-clickable-with-routerlink */
-@reference "@/index.css";
 td {
   @apply p-0;
 
