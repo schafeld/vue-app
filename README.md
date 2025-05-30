@@ -13,8 +13,8 @@ https://vueschool.io/lessons/getting-started-with-shadcn-ui-and-vuejs
 https://github.com/vueschool/vuejs-masterclass-2024-edition/branches/all?query=&page=5
 https://supabase.com/dashboard/project/yuzzrmawywyywsjlnwff/editor
 
-State 2025-05-26, continue at:
-https://vueschool.io/lessons/configure-unplugin-auto-import-for-unplugin-vue-router
+State 2025-05-30, continue at:
+https://vueschool.io/lessons/exercise-create-dynamic-indvidual-task-page
 
 ## Project setup
 
