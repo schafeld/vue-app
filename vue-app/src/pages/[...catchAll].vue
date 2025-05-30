@@ -4,8 +4,6 @@ const route = useRoute();
 // usePageStore().pageData.title = "404 Not Found";
 </script>
 
-<script setup lang="ts"></script>
-
 <template>
   <section class="error">
     <div>
