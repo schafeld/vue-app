@@ -21,3 +21,20 @@ export const projectsQuery = supabase
   .order('created_at', { ascending: false });
 
 export type Projects = QueryData<typeof projectsQuery>;
+
+
+export const singleProjectQuery = (slug: string) => supabase
+  .from('projects')
+  .select(`
+    *,
+    tasks(
+      id,
+      name,
+      status,
+      due_date
+      )`
+    )
+    .eq('slug', slug)
+    .single()
+
+export type SingleProject = QueryData<ReturnType<typeof singleProjectQuery>>;

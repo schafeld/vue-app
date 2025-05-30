@@ -1,17 +1,40 @@
 <script setup lang="ts">
-  const route = useRoute();
-  const router = useRouter();
+import { singleProjectQuery } from "@/utils/supabaseQueries";
+import type { SingleProject } from "@/utils/supabaseQueries";
 
-  usePageStore().pageData.title = 'Single Project View';
+const router = useRouter();
+const route = useRoute("/projects/[slug]");
 
-  const goBack = () => {
-    // <button @click="goBack" class="hover:underline cursor-pointer">Go Back</button>
-    if (router.options.history.state.back) {
-      router.back();
-    } else {
-      router.push('/projects');
-    }
-  };
+usePageStore().pageData.title = "Single Project View";
+
+const goBack = () => {
+  // <button @click="goBack" class="hover:underline cursor-pointer">Go Back</button>
+  if (router.options.history.state.back) {
+    router.back();
+  } else {
+    router.push("/projects");
+  }
+};
+
+const project = ref<SingleProject | null>(null);
+
+const getProject = async () => {
+  const { data, error } = await singleProjectQuery(route.params.slug as string);
+
+  if (error) {
+    console.error("Error fetching project:", error);
+  } else {
+    project.value = data;
+  }
+};
+
+await getProject(); //.then(() => {
+//   if (!project.value) {
+//     console.error("Project not found");
+//   } else {
+//     console.log("Project data:", project.value);
+//   }
+// });
 </script>
 
 <template>
@@ -24,11 +47,11 @@
     <TableRow>
       <TableHead> Description </TableHead>
       <TableCell>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad iure qui tempora ex nihil, ab
-        reprehenderit dolorem sunt veritatis perferendis? Repudiandae quis velit quasi ab natus quia
-        ratione voluptas deserunt labore sed distinctio nam fuga fugit vero voluptates placeat
-        aperiam, saepe excepturi eos harum consectetur doloremque perspiciatis nesciunt! Incidunt,
-        modi.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad iure qui tempora ex
+        nihil, ab reprehenderit dolorem sunt veritatis perferendis? Repudiandae quis velit
+        quasi ab natus quia ratione voluptas deserunt labore sed distinctio nam fuga fugit
+        vero voluptates placeat aperiam, saepe excepturi eos harum consectetur doloremque
+        perspiciatis nesciunt! Incidunt, modi.
       </TableCell>
     </TableRow>
     <TableRow>
