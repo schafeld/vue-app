@@ -38,3 +38,18 @@ export const singleProjectQuery = (slug: string) => supabase
     .single()
 
 export type SingleProject = QueryData<ReturnType<typeof singleProjectQuery>>;
+
+export const singleTaskQuery = (id: number) => supabase
+  .from('tasks')
+  .select(`
+    *,
+    projects (
+      id,
+      name,
+      slug
+    )
+  `)
+  .eq('id', id)
+  .single();
+
+export type SingleTask = QueryData<ReturnType<typeof singleTaskQuery>>;
