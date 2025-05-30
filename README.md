@@ -103,6 +103,26 @@ npm run supabase:types
 node database/seed.js
 ```
 
+#### Seed data or modify existing data
+
+If you want to change the projects data for instance (e.g. add descriptions to projects):
+
+- add a DB column `description` to the `projects` table in
+  `vue-app/supabase/migrations/20250415144650_projects-schema.sql`
+- add the `description` field in `vue-app/database/seed.js`
+- run the seed script to update the data in the database
+
+```bash
+# Reset and repopulate db
+npm run db:reset
+npm run db:seed
+
+# Create new typescript types
+npm run supabase:types
+```
+
+DB updates should then be visible in `vue-app/src/database/types.ts`.
+
 ### Faker js
 
 [Faker.js](https://fakerjs.dev/) is used for seeding the database with test data.
