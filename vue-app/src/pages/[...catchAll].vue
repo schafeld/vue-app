@@ -1,29 +1,55 @@
 <script setup lang="ts">
-  const route = useRoute();
+const route = useRoute();
 
-  usePageStore().pageData.title = '404 Not Found';
+// usePageStore().pageData.title = "404 Not Found";
 </script>
 
+<script setup lang="ts"></script>
+
 <template>
-  <div class="not-found-view">
-
-    <p>The page "{{ route.path }}" you are looking for does not exist.</p>
-
-    <p>
-      Go <RouterLink to="/">
-      back to Home
-      </RouterLink>.
-    </p>
-  </div>
+  <section class="error">
+    <div>
+      <iconify-icon icon="lucide:triangle-alert" class="error__icon" />
+      <h1 class="error__code">404</h1>
+      <p class="error__msg">Page not found</p>
+      <div class="error-footer">
+        <p class="error-footer__text">You'll find lots to explore on the home page.</p>
+        <RouterLink to="/">
+          <Button class="max-w-36"> Back to homepage </Button>
+        </RouterLink>
+      </div>
+    </div>
+  </section>
 </template>
 
+<style scoped>
+@reference "@/index.css";
 
+.error {
+  @apply mx-auto flex justify-center items-center flex-1 p-10 text-center -mt-20 min-h-[90vh];
+}
 
-<style>
-  .not-found-view h1 {
-    color: red;
-  }
-  .not-found-view a {
-    text-decoration: underline;
-  }
+.error__icon {
+  @apply text-7xl text-destructive;
+}
+
+.error__code {
+  @apply font-extrabold text-7xl text-secondary;
+}
+
+.error__msg {
+  @apply text-3xl font-extrabold text-primary;
+}
+
+.error-footer {
+  @apply flex flex-col items-center justify-center gap-5 mt-6 font-light;
+}
+
+.error-footer__text {
+  @apply text-lg text-muted-foreground;
+}
+
+p {
+  @apply my-2;
+}
 </style>
