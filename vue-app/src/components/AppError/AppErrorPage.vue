@@ -2,9 +2,17 @@
 import { useErrorStore } from "@/stores/error";
 
 const router = useRouter();
+const errorStore = useErrorStore();
+const error = ref(errorStore.activeError);
+const message = ref("");
+const customCode = ref(0);
+
+if (error.value) {
+  message.value = error.value.message;
+  customCode.value = error.value.customCode ?? 0;
+}
+
 router.afterEach(() => {
-  // Reset the error state after navigating away from the error page
-  const errorStore = useErrorStore();
   errorStore.clearError();
 });
 </script>
@@ -13,8 +21,8 @@ router.afterEach(() => {
   <section class="error">
     <div>
       <iconify-icon icon="lucide:triangle-alert" class="error__icon" />
-      <h1 class="error__code">404</h1>
-      <p class="error__msg">Page not found</p>
+      <h1 class="error__code">{{ customCode }}</h1>
+      <p class="error__msg">{{ message }}</p>
       <div class="error-footer">
         <p class="error-footer__text">You'll find lots to explore on the home page.</p>
         <RouterLink to="/">

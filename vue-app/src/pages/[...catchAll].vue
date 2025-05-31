@@ -3,7 +3,10 @@
 import { useErrorStore } from "@/stores/error";
 
 // usePageStore().pageData.title = "404 Not Found";
-useErrorStore().setError();
+useErrorStore().setError({
+  error: "Page not found",
+  customCode: 404,
+});
 </script>
 
 <template>
