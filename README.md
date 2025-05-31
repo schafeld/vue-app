@@ -13,8 +13,8 @@ https://vueschool.io/lessons/getting-started-with-shadcn-ui-and-vuejs
 https://github.com/vueschool/vuejs-masterclass-2024-edition/branches/all?query=&page=5
 https://supabase.com/dashboard/project/yuzzrmawywyywsjlnwff/editor
 
-State 2025-05-30, continue at:
-https://vueschool.io/lessons/exercise-create-dynamic-indvidual-task-page
+State 2025-05-31, continue at:
+https://vueschool.io/lessons/adjust-the-error-page-for-custom-errors
 
 ## Project setup
 
