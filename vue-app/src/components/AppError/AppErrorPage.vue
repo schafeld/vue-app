@@ -1,3 +1,14 @@
+<script lang="ts" setup>
+import { useErrorStore } from "@/stores/error";
+
+const router = useRouter();
+router.afterEach(() => {
+  // Reset the error state after navigating away from the error page
+  const errorStore = useErrorStore();
+  errorStore.clearError();
+});
+</script>
+
 <template>
   <section class="error">
     <div>
