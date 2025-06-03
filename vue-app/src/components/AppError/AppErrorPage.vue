@@ -1,13 +1,15 @@
 <script lang="ts" setup>
 import { useErrorStore } from "@/stores/error";
-import AppErrorDevSection from "@/components/AppError/AppErrorDevSection.vue";
-import AppErrorProdSection from "./AppErrorProdSection.vue";
 
 const router = useRouter();
 const errorStore = useErrorStore();
 const error = ref(errorStore.activeError);
 const message = ref("");
 const customCode = ref(0);
+
+const ErrorTemplate = import.meta.env.DEV
+  ? defineAsyncComponent(() => import("./AppErrorDevSection.vue"))
+  : defineAsyncComponent(() => import("./AppErrorProdSection.vue"));
 
 if (error.value) {
   message.value = error.value.message;
@@ -20,13 +22,7 @@ router.afterEach(() => {
 </script>
 
 <template>
-  <AppErrorDevSection :message :customCode :error />
-  <!-- <AppErrorProdSection
-    :message
-    :customCode
-    :error
-    :isCustomError="errorStore.isCustomError"
-  /> -->
+  <ErrorTemplate :message :customCode :error :isCustomError="errorStore.isCustomError" />
 </template>
 
 <style>

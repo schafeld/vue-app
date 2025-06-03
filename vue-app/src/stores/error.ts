@@ -18,6 +18,7 @@ export const useErrorStore = defineStore('error-store', () => {
 
   const clearError = () => {
     activeError.value = null;
+    isCustomError.value = false;
   }
 
   return {
