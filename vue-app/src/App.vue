@@ -1,11 +1,22 @@
 <script setup lang="ts">
 import { useErrorStore } from "@/stores/error";
-const { activeError } = storeToRefs(useErrorStore());
+
+const errorStore = useErrorStore();
+
+onErrorCaptured((err, instance, info) => {
+  errorStore.setError({
+    error: err,
+    // customCode: 500, // optional
+  });
+  console.error("Error captured:", err);
+  console.warn("Error info: ", info);
+  console.warn("Error instance: ", instance);
+});
 </script>
 
 <template>
   <AuthLayout>
-    <AppErrorPage v-if="activeError" />
+    <AppErrorPage v-if="errorStore.activeError" />
 
     <RouterView v-else v-slot="{ Component, route }">
       <Suspense v-if="Component" :timeout="0">
