@@ -8,12 +8,16 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AppErrorDevComponent: typeof import('./src/components/AppError/AppErrorDevComponent.vue')['default']
+    AppErrorDevSection: typeof import('./src/components/AppError/AppErrorDevSection.vue')['default']
     AppErrorPage: typeof import('./src/components/AppError/AppErrorPage.vue')['default']
+    AppErrorProdSection: typeof import('./src/components/AppError/AppErrorProdSection.vue')['default']
     AuthLayout: typeof import('./src/components/Layout/main/AuthLayout.vue')['default']
     Avatar: typeof import('./src/components/ui/avatar/Avatar.vue')['default']
     AvatarFallback: typeof import('./src/components/ui/avatar/AvatarFallback.vue')['default']
     AvatarImage: typeof import('./src/components/ui/avatar/AvatarImage.vue')['default']
     Button: typeof import('./src/components/ui/button/Button.vue')['default']
+    copy: typeof import('./src/components/AppError/AppErrorDevSection copy.vue')['default']
     DataTable: typeof import('./src/components/ui/data-table/DataTable.vue')['default']
     DropdownMenu: typeof import('./src/components/ui/dropdown-menu/DropdownMenu.vue')['default']
     DropdownMenuCheckboxItem: typeof import('./src/components/ui/dropdown-menu/DropdownMenuCheckboxItem.vue')['default']

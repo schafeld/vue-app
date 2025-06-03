@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { useErrorStore } from "@/stores/error";
+import AppErrorDevSection from "@/components/AppError/AppErrorDevSection.vue";
+import AppErrorProdSection from "./AppErrorProdSection.vue";
 
 const router = useRouter();
 const errorStore = useErrorStore();
@@ -18,22 +20,16 @@ router.afterEach(() => {
 </script>
 
 <template>
-  <section class="error">
-    <div>
-      <iconify-icon icon="lucide:triangle-alert" class="error__icon" />
-      <h1 class="error__code" v-if="customCode">{{ customCode }}</h1>
-      <p class="error__msg">{{ message }}</p>
-      <div class="error-footer">
-        <p class="error-footer__text">You'll find lots to explore on the home page.</p>
-        <RouterLink to="/">
-          <Button class="max-w-36"> Back to homepage </Button>
-        </RouterLink>
-      </div>
-    </div>
-  </section>
+  <AppErrorDevSection :message :customCode :error />
+  <!-- <AppErrorProdSection
+    :message
+    :customCode
+    :error
+    :isCustomError="errorStore.isCustomError"
+  /> -->
 </template>
 
-<style scoped>
+<style>
 @reference "@/index.css";
 
 .error {
