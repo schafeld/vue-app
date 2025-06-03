@@ -28,6 +28,12 @@ const getTasks = async () => {
 };
 
 await getTasks();
+
+// Simulate a generic error
+// useErrorStore().setError({
+//   error: new Error("Very odd thing happened"),
+//   // customCode: 666,
+// });
 </script>
 
 <template>
