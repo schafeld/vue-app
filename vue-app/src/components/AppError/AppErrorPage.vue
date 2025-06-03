@@ -21,7 +21,7 @@ router.afterEach(() => {
   <section class="error">
     <div>
       <iconify-icon icon="lucide:triangle-alert" class="error__icon" />
-      <h1 class="error__code">{{ customCode }}</h1>
+      <h1 class="error__code" v-if="customCode">{{ customCode }}</h1>
       <p class="error__msg">{{ message }}</p>
       <div class="error-footer">
         <p class="error-footer__text">You'll find lots to explore on the home page.</p>
