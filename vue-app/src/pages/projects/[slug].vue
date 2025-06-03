@@ -34,7 +34,8 @@ const getProject = async () => {
   if (error) {
     console.error("Error fetching project:", error);
     useErrorStore().setError({
-      error: `Failed to fetch project: ${error.code}`,
+      // error: `Failed to fetch project: ${error.code}`, // this would be error type string
+      error, // this is the PostgrestError type
       customCode: status,
     });
   } else {

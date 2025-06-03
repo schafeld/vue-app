@@ -14,7 +14,8 @@ const getTasks = async () => {
 
   if (fetchError) {
     useErrorStore().setError({
-      error: "Failed to fetch tasks",
+      // error: "Failed to fetch tasks",
+      error: fetchError, // this is the PostgrestError type
       customCode: status,
     });
 
