@@ -20,10 +20,14 @@ watch(
 );
 
 const getTask = async () => {
-  const { data, error } = await singleTaskQuery(Number(route.params.id));
+  const { data, error, status } = await singleTaskQuery(Number(route.params.id));
 
   if (error) {
     console.error("Error fetching task:", error);
+    useErrorStore().setError({
+      error: `Failed to fetch task: ${error.code}`,
+      customCode: status,
+    });
   } else {
     task.value = data;
   }

@@ -29,10 +29,14 @@ watch(
 );
 
 const getProject = async () => {
-  const { data, error } = await singleProjectQuery(route.params.slug as string);
+  const { data, error, status } = await singleProjectQuery(route.params.slug as string);
 
   if (error) {
     console.error("Error fetching project:", error);
+    useErrorStore().setError({
+      error: `Failed to fetch project: ${error.code}`,
+      customCode: status,
+    });
   } else {
     project.value = data;
   }
