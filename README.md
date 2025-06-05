@@ -159,9 +159,9 @@ Convention demands a `VITE_` prefix for environment variables that you want to e
 
 Secret environment variables are in an .env file outside the project directory (see seed.js).
 
-## ShadCDN for Vue
+## ShadCN for Vue
 
-[Install ShadCDN](https://www.shadcn-vue.com/docs/installation/vite.html) with this command instead of non-functional code from [VueSchool tutorial](https://vueschool.io/lessons/getting-started-with-shadcn-ui-and-vuejs):
+[Install ShadCN](https://www.shadcn-vue.com/docs/installation/vite.html) with this command instead of non-functional code from [VueSchool tutorial](https://vueschool.io/lessons/getting-started-with-shadcn-ui-and-vuejs):
 
 ```bash
 # npm i -D tailwindcss@^3.4.17 autoprefixer@^10.4.20
