@@ -41,6 +41,7 @@ declare module 'vue' {
     Input: typeof import('./src/components/ui/input/Input.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Separator: typeof import('./src/components/ui/separator/Separator.vue')['default']
     Sidebar: typeof import('./src/components/Layout/Sidebar.vue')['default']
     SidebarLinks: typeof import('./src/components/Layout/SidebarLinks.vue')['default']
     Table: typeof import('./src/components/ui/table/Table.vue')['default']
