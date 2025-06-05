@@ -132,6 +132,27 @@ DB updates should then be visible in `vue-app/src/database/types.ts`.
 npm install @faker-js/faker --save-dev
 ```
 
+## Supabase Authentication
+
+[Tutorial](https://vueschool.io/lessons/set-up-vue-js-and-supabase-for-seamless-auth-integration).
+
+### Set up Supabase authentication
+
+```bash
+npm run db:migrate:new profiles-schema
+```
+
+Used this [schema template](https://github.com/vueschool/vuejs-masterclass-2024-edition/blob/67.set-up-vuejs-and-supabase-for-seamless-auth-integration/supabase/migrations/20240905083244_profiles-schema.sql) for the `profiles` schema content.
+
+````bash
+# reset the database
+npm run db:reset --linked
+# generate (new) typescript types
+npm run supabase:types
+# seed the database with initial data
+npm run db:seed
+```
+
 ## Environment variables
 
 Convention demands a `VITE_` prefix for environment variables that you want to expose to your _client_-side code too.
@@ -147,7 +168,7 @@ Secret environment variables are in an .env file outside the project directory (
 
 npm install tailwindcss @tailwindcss/vite
 # add files according to https://www.shadcn-vue.com/docs/installation/vite.html
-```
+````
 
 Adding an [input component](https://www.shadcn-vue.com/docs/components/input.html):
 
