@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { supabase } from "@/lib/supabaseClient";
+
 const formData = ref({
   username: "",
   firstName: "",
@@ -7,6 +9,21 @@ const formData = ref({
   password: "",
   confirmPassword: "",
 });
+
+const signup = async () => {
+  // console.log("Form Data:", formData.value);
+
+  const { data, error } = await supabase.auth.signUp({
+    email: formData.value.email,
+    password: formData.value.password,
+  });
+
+  if (error) {
+    console.error("Error signing up:", error.message);
+    return;
+  }
+  console.log("Sign up successful:", data);
+};
 </script>
 
 <template>
@@ -23,7 +40,7 @@ const formData = ref({
           <Button variant="outline" class="w-full"> Register with Google </Button>
           <Separator label="Or" />
         </div>
-        <form class="grid gap-4">
+        <form class="grid gap-4" @submit.prevent="signup">
           <div class="grid gap-2">
             <Label id="username" class="text-left">Username</Label>
             <Input

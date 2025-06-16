@@ -13,8 +13,8 @@ https://vueschool.io/lessons/getting-started-with-shadcn-ui-and-vuejs
 https://github.com/vueschool/vuejs-masterclass-2024-edition/branches/all?query=&page=5
 https://supabase.com/dashboard/project/yuzzrmawywyywsjlnwff/editor
 
-State 2025-05-31, continue at:
-https://vueschool.io/lessons/adjust-the-error-page-for-custom-errors
+State 2025-06-12, continue at:
+https://vueschool.io/lessons/register-new-users-with-supabase-auth-and-vue-js
 
 ## Project setup
 
@@ -152,6 +152,8 @@ npm run supabase:types
 # seed the database with initial data
 npm run db:seed
 ```
+
+Setting up [new Supabase authentication/user(https://supabase.com/docs/reference/javascript/auth-signup), [tutorial](https://vueschool.io/lessons/register-new-users-with-supabase-auth-and-vue-js).
 
 ## Environment variables
 
