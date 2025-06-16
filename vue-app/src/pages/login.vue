@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { supabase } from "@/lib/supabaseClient";
+import { login } from "@/utils/supabaseAuth";
 import { useRouter } from "vue-router";
 
 const formData = ref({
@@ -8,19 +8,10 @@ const formData = ref({
 });
 
 const router = useRouter();
+
 const singin = async () => {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: formData.value.email,
-    password: formData.value.password,
-  });
-
-  if (error) {
-    console.error("Error logging in:", error.message);
-    return;
-  }
-
-  if (data.user) {
-    console.log("Login successful for user:", data.user);
+  const isLoggedIn = await login(formData.value);
+  if (isLoggedIn) {
     router.push("/");
   }
 };
