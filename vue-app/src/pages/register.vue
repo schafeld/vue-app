@@ -10,6 +10,8 @@ const formData = ref({
   confirmPassword: "",
 });
 
+const router = useRouter();
+
 const signup = async () => {
   // console.log("Form Data:", formData.value);
 
@@ -22,7 +24,22 @@ const signup = async () => {
     console.error("Error signing up:", error.message);
     return;
   }
-  console.log("Sign up successful:", data);
+  // console.log("Sign up successful:", data);
+
+  if (data.user) {
+    const { error } = await supabase.from("profiles").insert({
+      id: data.user.id,
+      username: formData.value.username,
+      full_name: `${formData.value.firstName} ${formData.value.lastName}`,
+    });
+
+    if (error) {
+      console.error("Error inserting profile:", error.message);
+      return;
+    }
+  }
+  router.push("/");
+  console.log("Registration successful, redirecting to home page.");
 };
 </script>
 
