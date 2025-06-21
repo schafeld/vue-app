@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { useErrorStore } from "@/stores/error";
+import { useAuthStore } from "@/stores/auth";
+import { supabase } from "./lib/supabaseClient";
 
 const errorStore = useErrorStore();
+const authStore = useAuthStore();
 
 onErrorCaptured((err, instance, info) => {
   errorStore.setError({
@@ -11,6 +14,13 @@ onErrorCaptured((err, instance, info) => {
   console.error("Error captured:", err);
   console.warn("Error info: ", info);
   console.warn("Error instance: ", instance);
+});
+
+onMounted(async () => {
+  const { data } = await supabase.auth.getSession();
+  if (data.session?.user) {
+    await authStore.setAuth(data.session);
+  }
 });
 </script>
 
