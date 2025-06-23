@@ -37,6 +37,10 @@ const accountLinks = [
     icon: "lucide:log-out",
   },
 ];
+
+const handleLinkClick = (title: string) => {
+  console.log(`Link clicked: ${title}`);
+};
 </script>
 
 <template>
@@ -57,7 +61,7 @@ const accountLinks = [
         <SidebarLinks :links="links" />
       </div>
       <div class="absolute bottom-3 w-full">
-        <SidebarLinks :links="accountLinks" />
+        <SidebarLinks :links="accountLinks" @link-click="handleLinkClick" />
       </div>
     </nav>
   </aside>
