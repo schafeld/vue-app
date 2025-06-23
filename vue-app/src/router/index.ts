@@ -7,10 +7,20 @@ const router = createRouter({
   routes,
 })
 
-// router.beforeEach(async (to, from, next) => {
-//   const { getSession } = useAuthStore();
-//   await getSession();
-//   next();
-// })
+router.beforeEach(async (to, from) => {
+  const authStore = useAuthStore();
+  // Ensure the session is updated before a navigation guard runs
+  await authStore.getSession();
+
+  const isAuthPage = ['/login', '/register'].includes(to.path);
+
+  if (!authStore.user && !isAuthPage) {
+    return { name: '/login' }
+  }
+
+  if (authStore.user && isAuthPage) {
+    return { name: '/' }
+  }
+})
 
 export default router
