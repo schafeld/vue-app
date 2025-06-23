@@ -1,40 +1,42 @@
 <script setup lang="ts">
-
-  const links = [
-    {
-      title: 'Dashboard',
-      to: '/',
-      icon: 'lucide:house'
-    },
-    {
-      title: 'Projects',
-      to: '/projects',
-      icon: 'lucide:building-2'
-    },
-    {
-      title: 'Tasks',
-      to: '/tasks',
-      icon: 'lucide:badge-check'
-    },
-
-  ];
-  const accountLinks = [
-    {
-      title: 'Profile',
-      to: '/profile',
-      icon: 'lucide:user'
-    },
-    {
-      title: 'Settings',
-      to: '/settings',
-      icon: 'lucide:settings'
-    },
-    {
-      title: 'Sign out',
-      to: '/signout',
-      icon: 'lucide:log-out'
-    }
-  ];
+const links = [
+  {
+    title: "Dashboard",
+    to: "/",
+    icon: "lucide:house",
+  },
+  {
+    title: "Projects",
+    to: "/projects",
+    icon: "lucide:building-2",
+  },
+  {
+    title: "Tasks",
+    to: "/tasks",
+    icon: "lucide:badge-check",
+  },
+];
+const accountLinks = [
+  {
+    title: "Profile",
+    to: "/profile",
+    icon: "lucide:user",
+  },
+  // {
+  //   title: "Chat",
+  //   to: "/chat",
+  //   icon: "lucide:message-square",
+  // },
+  {
+    title: "Settings",
+    to: "/settings",
+    icon: "lucide:settings",
+  },
+  {
+    title: "Sign out",
+    icon: "lucide:log-out",
+  },
+];
 </script>
 
 <template>
@@ -51,15 +53,14 @@
       </Button>
     </div>
     <nav class="flex flex-col gap-2 justify-between h-full relative">
-    <div class="sidebar-links">
-      <SidebarLinks :links="links" />
-    </div>
+      <div class="sidebar-links">
+        <SidebarLinks :links="links" />
+      </div>
       <div class="absolute bottom-3 w-full">
         <SidebarLinks :links="accountLinks" />
       </div>
-  </nav>
+    </nav>
   </aside>
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
