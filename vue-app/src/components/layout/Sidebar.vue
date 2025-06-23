@@ -38,8 +38,13 @@ const accountLinks = [
   },
 ];
 
-const handleLinkClick = (title: string) => {
-  console.log(`Link clicked: ${title}`);
+const handleLinkClick = async (title: string) => {
+  // console.log(`Link clicked: ${title}`);
+  if (title === "Sign out") {
+    const { logout } = await import("@/utils/supabaseAuth");
+    await logout();
+    return;
+  }
 };
 </script>
 
