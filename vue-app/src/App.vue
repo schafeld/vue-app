@@ -15,11 +15,7 @@ onErrorCaptured((err, instance, info) => {
 });
 
 onMounted(() => {
-  supabase.auth.onAuthStateChange((event, session) => {
-    setTimeout(async () => {
-      await useAuthStore().setAuth(session);
-    }, 0);
-  });
+  useAuthStore().trackAuthChanges();
 });
 </script>
 
