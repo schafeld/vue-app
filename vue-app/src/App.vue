@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useErrorStore } from "@/stores/error";
+import { supabase } from "./lib/supabaseClient";
 
 const errorStore = useErrorStore();
 
@@ -13,8 +14,13 @@ onErrorCaptured((err, instance, info) => {
   console.warn("Error instance: ", instance);
 });
 
-// onMounted(async () => {
-// });
+onMounted(() => {
+  supabase.auth.onAuthStateChange((event, session) => {
+    setTimeout(async () => {
+      await useAuthStore().setAuth(session);
+    }, 0);
+  });
+});
 </script>
 
 <template>
