@@ -15,8 +15,11 @@ const signin = async () => {
   const result = await login(formData.value);
   if (result === true) {
     router.push("/");
-  } else {
-    _error.value = result.error.message;
+  } else if (result.error) {
+    _error.value =
+      result.error.message === "Invalid login credentials"
+        ? "Invalid email or password"
+        : result.error.message;
   }
 };
 </script>
