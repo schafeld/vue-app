@@ -287,3 +287,4 @@ For a production app, you'd want more restrictive policies, but this will work f
 - [ ] Add more CRUD operations, e.g. for tasks
 - [ ] Add more tests, e.g. for the Supabase integration
 - [ ] Add more documentation, e.g. for the Supabase integration
+- [ ] Add more features based on [VueUse (Collection of Vue Composition Utilities)](https://vueuse.org/), e.g. for login password validation
