@@ -7,12 +7,16 @@ const formData = ref({
   password: "",
 });
 
+const _error = ref<string | null>(null);
+
 const router = useRouter();
 
 const signin = async () => {
-  const isLoggedIn = await login(formData.value);
-  if (isLoggedIn) {
+  const result = await login(formData.value);
+  if (result === true) {
     router.push("/");
+  } else {
+    _error.value = result.error.message;
   }
 };
 </script>
@@ -40,6 +44,7 @@ const signin = async () => {
               placeholder="johndoe19@example.com"
               v-model="formData.email"
               required
+              :class="{ 'border-red-500': _error }"
             />
           </div>
           <div class="grid gap-2">
@@ -55,7 +60,11 @@ const signin = async () => {
               v-model="formData.password"
               autocomplete
               required
+              :class="{ 'border-red-500': _error }"
             />
+          </div>
+          <div v-if="_error" class="text-red-500 text-sm">
+            {{ _error }}
           </div>
           <Button type="submit" class="w-full"> Login </Button>
         </form>
