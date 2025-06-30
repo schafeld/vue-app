@@ -29,7 +29,6 @@ export const register = async (formData: RegisterForm) => {
     }
   }
 
-  // await authStore.setAuth(data.session);
   return true;
 }
 
@@ -42,10 +41,9 @@ export const login = async (formData: LoginForm) => {
 
   if (error) {
     console.error("Error logging in:", error.message);
-    return;
+    return { error };
   }
 
-  // await authStore.setAuth(data.session);
   return true;
 };
 
@@ -57,6 +55,5 @@ export const logout = async () => {
     return;
   }
 
-  // await authStore.setAuth();
   return true;
 };
