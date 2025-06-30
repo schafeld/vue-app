@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { login } from "@/utils/supabaseAuth";
 import { useRouter } from "vue-router";
+import { watchDebounced } from "@vueuse/core";
 
 const formData = ref({
   email: "",
@@ -15,6 +16,14 @@ const {
 } = useFormErrors();
 
 const router = useRouter();
+
+watchDebounced(
+  formData,
+  () => {
+    handleLoginForm(formData.value);
+  },
+  { debounce: 300, deep: true }
+);
 
 const signin = async () => {
   const result = await login(formData.value);
@@ -50,7 +59,6 @@ const signin = async () => {
               v-model="formData.email"
               required
               :class="{ 'border-red-500': serverError }"
-              @input="handleLoginForm(formData)"
             />
             <ul v-if="realtimeErrors?.email.length" class="text-red-500 text-sm">
               <li v-for="error in realtimeErrors.email" :key="error">
@@ -72,7 +80,6 @@ const signin = async () => {
               autocomplete
               required
               :class="{ 'border-red-500': serverError }"
-              @input="handleLoginForm(formData)"
             />
           </div>
 
