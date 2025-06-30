@@ -7,7 +7,12 @@ const formData = ref({
   password: "",
 });
 
-const { serverError, handleServerError } = useFormErrors();
+const {
+  serverError,
+  handleServerError,
+  realtimeErrors,
+  handleLoginForm,
+} = useFormErrors();
 
 const router = useRouter();
 
@@ -45,7 +50,13 @@ const signin = async () => {
               v-model="formData.email"
               required
               :class="{ 'border-red-500': serverError }"
+              @input="handleLoginForm(formData)"
             />
+            <ul v-if="realtimeErrors?.email.length" class="text-red-500 text-sm">
+              <li v-for="error in realtimeErrors.email" :key="error">
+                {{ error }}
+              </li>
+            </ul>
           </div>
           <div class="grid gap-2">
             <div class="flex items-center">
@@ -61,11 +72,19 @@ const signin = async () => {
               autocomplete
               required
               :class="{ 'border-red-500': serverError }"
+              @input="handleLoginForm(formData)"
             />
           </div>
-          <div v-if="serverError" class="text-red-500 text-sm">
-            {{ serverError }}
-          </div>
+
+          <ul v-if="realtimeErrors?.password.length" class="text-red-500 text-sm">
+            <li v-for="error in realtimeErrors.password" :key="error">
+              {{ error }}
+            </li>
+            <li v-if="serverError">
+              {{ serverError }}
+            </li>
+          </ul>
+
           <Button type="submit" class="w-full"> Login </Button>
         </form>
         <div class="mt-4 text-sm text-center">
