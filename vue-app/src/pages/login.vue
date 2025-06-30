@@ -9,7 +9,7 @@ const formData = ref({
 
 const router = useRouter();
 
-const singin = async () => {
+const signin = async () => {
   const isLoggedIn = await login(formData.value);
   if (isLoggedIn) {
     router.push("/");
@@ -32,7 +32,7 @@ const singin = async () => {
           <Separator label="Or" />
         </div>
 
-        <form class="grid gap-4" @submit.prevent="singin">
+        <form class="grid gap-4" @submit.prevent="signin">
           <div class="grid gap-2">
             <Label id="email" class="text-left">Email</Label>
             <Input
