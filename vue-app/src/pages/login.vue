@@ -7,7 +7,7 @@ const formData = ref({
   password: "",
 });
 
-const _error = ref<string | null>(null);
+const { serverError, handleServerError } = useFormErrors();
 
 const router = useRouter();
 
@@ -16,10 +16,7 @@ const signin = async () => {
   if (result === true) {
     router.push("/");
   } else if (result.error) {
-    _error.value =
-      result.error.message === "Invalid login credentials"
-        ? "Invalid email or password"
-        : result.error.message;
+    handleServerError(result.error);
   }
 };
 </script>
@@ -47,7 +44,7 @@ const signin = async () => {
               placeholder="johndoe19@example.com"
               v-model="formData.email"
               required
-              :class="{ 'border-red-500': _error }"
+              :class="{ 'border-red-500': serverError }"
             />
           </div>
           <div class="grid gap-2">
@@ -63,11 +60,11 @@ const signin = async () => {
               v-model="formData.password"
               autocomplete
               required
-              :class="{ 'border-red-500': _error }"
+              :class="{ 'border-red-500': serverError }"
             />
           </div>
-          <div v-if="_error" class="text-red-500 text-sm">
-            {{ _error }}
+          <div v-if="serverError" class="text-red-500 text-sm">
+            {{ serverError }}
           </div>
           <Button type="submit" class="w-full"> Login </Button>
         </form>
