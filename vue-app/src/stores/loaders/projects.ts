@@ -9,12 +9,21 @@ export const useProjectsStore = defineStore("projects-store", () => {
   const error = ref<string | null>(null);
   const loadProjects = useMemoize(async (key: string) => await projectsQuery);
 
-  const getProjects = async () => {
+  const validateCache = () => {
+    if (projects.value?.length) {
+      projectsQuery.then(({ data }) => {
+        if (JSON.stringify(projects.value) === JSON.stringify(data)) {
+          console.log("Cached and fresh projects data matched, skipping fetch.");
+          return;
+        } else {
+          console.log("Cached projects data did not match fresh data, updating.");
+          loadProjects.delete('projects'); // Clear the cache for 'projects' to force a fresh fetch
+        }
+      });
+    }
+  }
 
-    // if(projects.value?.length) {
-    //   // If projects are already loaded, no need to fetch again
-    //   return;
-    // }
+  const getProjects = async () => {
 
     const { data, error: fetchError, status } = await loadProjects('projects');
 
@@ -30,6 +39,8 @@ export const useProjectsStore = defineStore("projects-store", () => {
     }
     loading.value = false;
   };
+
+  validateCache();
 
   return {
     projects,
