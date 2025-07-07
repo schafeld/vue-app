@@ -8,6 +8,12 @@ export const useProjectsStore = defineStore("projects-store", () => {
   const error = ref<string | null>(null);
 
   const getProjects = async () => {
+
+    if(projects.value?.length) {
+      // If projects are already loaded, no need to fetch again
+      return;
+    }
+
     const { data, error: fetchError, status } = await projectsQuery;
 
     if (fetchError) {
