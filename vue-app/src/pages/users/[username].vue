@@ -5,7 +5,12 @@ import { profileQuery } from "@/utils/supabaseQueries";
 const { username } = useRoute("/users/[username]").params;
 
 const profile = ref<Tables<"profiles"> | null>(null);
+const loading = ref(true);
+
 const getProfile = async () => {
+  if (profile.value) return; // Prevent multiple calls if data already exists
+
+  loading.value = true;
   const { data, error, status } = await profileQuery({
     column: "username",
     value: username,
@@ -21,9 +26,12 @@ const getProfile = async () => {
   } else {
     profile.value = data;
   }
+  loading.value = false;
 };
 
-await getProfile();
+onMounted(() => {
+  getProfile();
+});
 </script>
 
 <template>
