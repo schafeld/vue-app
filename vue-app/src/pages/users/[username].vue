@@ -5,7 +5,7 @@ import { profileQuery } from "@/utils/supabaseQueries";
 const { username } = useRoute("/users/[username]").params;
 
 const profile = ref<Tables<"profiles"> | null>(null);
-const getTasks = async () => {
+const getProfile = async () => {
   const { data, error, status } = await profileQuery({
     column: "username",
     value: username,
@@ -17,12 +17,13 @@ const getTasks = async () => {
       error,
       customCode: status,
     });
-
+    profile.value = null;
+  } else {
     profile.value = data;
   }
 };
 
-await getTasks();
+await getProfile();
 </script>
 
 <template>
