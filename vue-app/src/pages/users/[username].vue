@@ -1,4 +1,29 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { Tables } from "database/types";
+import { profileQuery } from "@/utils/supabaseQueries";
+
+const { username } = useRoute("/users/[username]").params;
+
+const profile = ref<Tables<"profiles"> | null>(null);
+const getTasks = async () => {
+  const { data, error, status } = await profileQuery({
+    column: "username",
+    value: username,
+  });
+
+  if (error) {
+    console.error("Error fetching profile:", error);
+    useErrorStore().setError({
+      error,
+      customCode: status,
+    });
+
+    profile.value = data;
+  }
+};
+
+await getTasks();
+</script>
 
 <template>
   <div
@@ -6,13 +31,13 @@
   >
     <div class="flex flex-col items-center justify-center pb-4">
       <Avatar size="lg">
-        <AvatarImage src="" alt="@radix-vue" />
+        <AvatarImage :src="profile?.avatar_url || ''" alt="@radix-vue" />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
 
-      <p class="mt-2 text-gray-500">username</p>
-      <h1 class="mt-5 text-4xl font-bold">name</h1>
-      <p class="mt-2 text-sm">job title</p>
+      <p class="mt-2 text-gray-500">{{ profile?.username }}</p>
+      <h1 class="mt-5 text-4xl font-bold">{{ profile?.full_name }}</h1>
+      <p class="mt-2 text-sm">{{ profile?.bio }}</p>
     </div>
     <Button>Edit profile</Button>
   </div>

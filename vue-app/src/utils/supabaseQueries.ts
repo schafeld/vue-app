@@ -54,10 +54,10 @@ export const singleTaskQuery = (id: number) => supabase
 
 export type SingleTask = QueryData<ReturnType<typeof singleTaskQuery>>;
 
-export const profileQuery = (id: string) => {
+export const profileQuery = ({ column, value }: {column: string, value: string }) => {
   return supabase
     .from('profiles')
     .select('*')
-    .eq('id', id)
+    .eq(column, value)
     .single();
 }
