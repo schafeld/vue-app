@@ -4,20 +4,21 @@ import type { Projects } from "@/utils/supabaseQueries";
 import type { Tables } from "../../../database/types";
 
 export const useProjectsStore = defineStore("projects-store", () => {
-  const projects = ref<Projects | null>(null);
+  const projects = ref<Projects>([]);
   const loading = ref(true);
   const error = ref<string | null>(null);
   const loadProjects = useMemoize(async (key: string) => await projectsQuery);
 
   const validateCache = () => {
     if (projects.value?.length) {
-      projectsQuery.then(({ data }) => {
+      projectsQuery.then(({ data, error }) => {
         if (JSON.stringify(projects.value) === JSON.stringify(data)) {
-          console.log("Cached and fresh projects data matched, skipping fetch.");
           return;
         } else {
-          console.log("Cached projects data did not match fresh data, updating.");
           loadProjects.delete('projects'); // Clear the cache for 'projects' to force a fresh fetch
+          if (!error && data) {
+            projects.value = data; // Update projects with fresh data
+          }
         }
       });
     }
@@ -35,12 +36,13 @@ export const useProjectsStore = defineStore("projects-store", () => {
         customCode: status,
       });
     } else {
-      projects.value = data as Tables<"projects">[];
+      projects.value = data;
     }
     loading.value = false;
+
+    validateCache();
   };
 
-  validateCache();
 
   return {
     projects,
