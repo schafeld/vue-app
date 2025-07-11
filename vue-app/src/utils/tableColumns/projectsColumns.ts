@@ -6,12 +6,12 @@ import type { GroupedCollabs } from "@/types/GroupedCollabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 // export const columns: ColumnDef<Tables<'projects'>>[] = [
-export const columns = (collabs: Ref<GroupedCollabs>):ColumnDef<Projects[0]>[] => [
+export const columns = (collabs: Ref<GroupedCollabs>): ColumnDef<Projects[0]>[] => [
   {
     accessorKey: 'name',
     header: () => h('div', { class: 'text-left' }, 'Name'),
     cell: ({ row }) => {
-      return h(RouterLink, { to: `/projects/${row.original.slug}`, class: 'text-left font-medium hover:bg-muted block w-full'}, () => row.getValue('name'))
+      return h(RouterLink, { to: `/projects/${row.original.slug}`, class: 'text-left font-medium hover:bg-muted block w-full' }, () => row.getValue('name'))
     },
   },
   {
@@ -28,19 +28,24 @@ export const columns = (collabs: Ref<GroupedCollabs>):ColumnDef<Projects[0]>[] =
     accessorKey: 'collaborators',
     header: () => h('div', { class: 'text-left' }, 'Collaborators'),
     cell: ({ row }) => {
-      const collaborators = row.getValue('collaborators') as string[];
+      const projectCollabs = collabs.value[row.original.id];
+      const isLoading = !projectCollabs && row.original.collaborators.length > 0;
+
       return h(
         'div',
-        { class: 'text-left' },
-        collabs.value[row.original.id].map(collab => {
-          return h(Avatar, () => [
-            h(AvatarImage, {
-              src: collab.avatar_url || '',
-              alt: collab.username,
-              class: 'rounded-full',
+        { class: 'text-left flex gap-1' },
+        collabs.value[row.original.id]?.map((collab) => {
+          return h(Avatar, { class: "h-6 w-6" }, () => [
+            // Try to show avatar image first
+            collab.avatar_url && h(AvatarImage, {
+              src: collab.avatar_url,
+              alt: collab.username || collab.full_name || 'User avatar'
             }),
-            h(AvatarFallback, { class: 'h-6 w-6 text-xs' }, () => collab.username.charAt(0).toUpperCase())
-          ])
+            // Fallback if no image or image fails to load
+            h(AvatarFallback, { class: 'text-xs' }, () =>
+              (collab.username || collab.full_name || 'U').charAt(0).toUpperCase()
+            )
+          ]);
         })
       );
     },
