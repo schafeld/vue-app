@@ -9,13 +9,14 @@ const { getProjects } = projectsLoader;
 
 await getProjects();
 
-const { getProfilesByIds } = useCollabs();
+const { getGroupedCollabs, groupedCollabs } = useCollabs();
 
-const test = await getProfilesByIds(projects.value[0]?.collaborators);
+// const test = await getProfilesByIds(projects.value[0]?.collaborators);
+// console.log("test", test);
 
-console.log("test", test);
+await getGroupedCollabs(projects.value);
 
-// getGroupedCollabs(projects.value);
+console.log("test", groupedCollabs.value);
 </script>
 
 <template>
