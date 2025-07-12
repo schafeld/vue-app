@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { singleProjectQuery } from "@/utils/supabaseQueries";
-import type { SingleProject } from "@/utils/supabaseQueries";
+// import { singleProjectQuery } from "@/utils/supabaseQueries";
+// import type { SingleProject } from "@/utils/supabaseQueries";
 
 const router = useRouter();
-const route = useRoute("/projects/[slug]");
+// const route = useRoute("/projects/[slug]");
+const { slug } = useRoute("/projects/[slug]").params;
 
 const goBack = () => {
   // <button @click="goBack" class="hover:underline cursor-pointer">Go Back</button>
@@ -14,10 +15,13 @@ const goBack = () => {
   }
 };
 
-const project = ref<SingleProject | null>(null);
+// const project = ref<SingleProject | null>(null);
+const projectsLoader = useProjectsStore();
+const { singleProject } = storeToRefs(projectsLoader);
+const { getSingleProject } = projectsLoader;
 
 watch(
-  project,
+  singleProject,
   (newProject) => {
     if (newProject && newProject.name) {
       usePageStore().pageData.title = `Project: ${newProject.name}`;
@@ -28,35 +32,35 @@ watch(
   { immediate: true }
 );
 
-const getProject = async () => {
-  const { data, error, status } = await singleProjectQuery(route.params.slug as string);
+// const getProject = async () => {
+//   const { data, error, status } = await singleProjectQuery(route.params.slug as string);
 
-  if (error) {
-    console.error("Error fetching project:", error);
-    useErrorStore().setError({
-      // error: `Failed to fetch project: ${error.code}`, // this would be error type string
-      error, // this is the PostgrestError type
-      customCode: status,
-    });
-  } else {
-    project.value = data;
-  }
-};
+//   if (error) {
+//     console.error("Error fetching project:", error);
+//     useErrorStore().setError({
+//       // error: `Failed to fetch project: ${error.code}`, // this would be error type string
+//       error, // this is the PostgrestError type
+//       customCode: status,
+//     });
+//   } else {
+//     project.value = data;
+//   }
+// };
 
-await getProject();
+await getSingleProject(slug);
 </script>
 
 <template>
-  <Table v-if="project" class="w-full">
+  <Table v-if="singleProject" class="w-full">
     <button @click="goBack" class="hover:underline cursor-pointer">Go Back</button>
     <TableRow>
       <TableHead> Name </TableHead>
-      <TableCell> {{ project.name }} </TableCell>
+      <TableCell> {{ singleProject.name }} </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Description </TableHead>
       <TableCell>
-        {{ project.description || "No description provided." }}
+        {{ singleProject.description || "No description provided." }}
       </TableCell>
     </TableRow>
     <TableRow>
@@ -69,7 +73,7 @@ await getProject();
         <div class="flex">
           <Avatar
             class="-mr-4 border border-primary hover:scale-110 transition-transform"
-            v-for="collaborator in project.collaborators"
+            v-for="collaborator in singleProject.collaborators"
             :key="collaborator"
           >
             <RouterLink class="w-full h-full flex items-center justify-center" to="">
@@ -83,7 +87,7 @@ await getProject();
   </Table>
 
   <section
-    v-if="project"
+    v-if="singleProject"
     class="mt-10 flex flex-col md:flex-row gap-5 justify-between grow"
   >
     <div class="flex-1">
@@ -98,7 +102,7 @@ await getProject();
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow v-for="task in project.tasks" :key="task.id">
+            <TableRow v-for="task in singleProject.tasks" :key="task.id">
               <TableCell> {{ task.name }} </TableCell>
               <TableCell> {{ task.status }} </TableCell>
               <TableCell> {{ task.due_date }} </TableCell>
