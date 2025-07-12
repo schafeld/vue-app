@@ -1,13 +1,15 @@
-import { projectsQuery } from "@/utils/supabaseQueries";
+import { projectsQuery, singleProjectQuery } from "@/utils/supabaseQueries";
 import { useMemoize } from "@vueuse/core";
-import type { Projects } from "@/utils/supabaseQueries";
-import type { Tables } from "../../../database/types";
+import type { Projects, SingleProject } from "@/utils/supabaseQueries";
+// import type { Tables } from "../../../database/types";
 
 export const useProjectsStore = defineStore("projects-store", () => {
   const projects = ref<Projects>([]);
+  const singleProject = ref<SingleProject>();
   const loading = ref(true);
   const error = ref<string | null>(null);
   const loadProjects = useMemoize(async (key: string) => await projectsQuery);
+  const loadProject = useMemoize(async (slug: string) => await singleProjectQuery(slug));
 
   const validateCache = () => {
     if (projects.value?.length) {
@@ -44,10 +46,26 @@ export const useProjectsStore = defineStore("projects-store", () => {
   };
 
 
-  return {
-    projects,
-    // loading,
-    // error,
-    getProjects,
+  const getSingleProject = async (slug: string) => {
+    const { data, error, status } = await loadProject(slug);
+
+    if (error) {
+      console.error("Error fetching project:", error);
+      useErrorStore().setError({
+        error,
+        customCode: status,
+      });
+    }
+
+    if (data) {
+      singleProject.value = data;
+    }
   };
-})
+
+    return {
+      projects,
+      getProjects,
+      singleProject,
+      getSingleProject,
+    };
+  })
