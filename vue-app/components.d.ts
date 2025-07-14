@@ -11,7 +11,7 @@ declare module 'vue' {
     AppErrorDevSection: typeof import('./src/components/AppError/AppErrorDevSection.vue')['default']
     AppErrorPage: typeof import('./src/components/AppError/AppErrorPage.vue')['default']
     AppErrorProdSection: typeof import('./src/components/AppError/AppErrorProdSection.vue')['default']
-    AuthLayout: typeof import('./src/components/Layout/main/AuthLayout.vue')['default']
+    AuthLayout: typeof import('./src/components/layout/main/AuthLayout.vue')['default']
     Avatar: typeof import('./src/components/ui/avatar/Avatar.vue')['default']
     AvatarFallback: typeof import('./src/components/ui/avatar/AvatarFallback.vue')['default']
     AvatarImage: typeof import('./src/components/ui/avatar/AvatarImage.vue')['default']
@@ -43,8 +43,8 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Separator: typeof import('./src/components/ui/separator/Separator.vue')['default']
-    Sidebar: typeof import('./src/components/Layout/Sidebar.vue')['default']
-    SidebarLinks: typeof import('./src/components/Layout/SidebarLinks.vue')['default']
+    Sidebar: typeof import('./src/components/layout/Sidebar.vue')['default']
+    SidebarLinks: typeof import('./src/components/layout/SidebarLinks.vue')['default']
     Table: typeof import('./src/components/ui/table/Table.vue')['default']
     TableBody: typeof import('./src/components/ui/table/TableBody.vue')['default']
     TableCaption: typeof import('./src/components/ui/table/TableCaption.vue')['default']
@@ -54,6 +54,6 @@ declare module 'vue' {
     TableHead: typeof import('./src/components/ui/table/TableHead.vue')['default']
     TableHeader: typeof import('./src/components/ui/table/TableHeader.vue')['default']
     TableRow: typeof import('./src/components/ui/table/TableRow.vue')['default']
-    TopNavbar: typeof import('./src/components/Layout/TopNavbar.vue')['default']
+    TopNavbar: typeof import('./src/components/layout/TopNavbar.vue')['default']
   }
 }
