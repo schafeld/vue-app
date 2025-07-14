@@ -1,7 +1,6 @@
 import { projectsQuery, singleProjectQuery } from "@/utils/supabaseQueries";
 import { useMemoize } from "@vueuse/core";
 import type { Projects, SingleProject } from "@/utils/supabaseQueries";
-// import type { Tables } from "../../../database/types";
 
 export const useProjectsStore = defineStore("projects-store", () => {
   const projects = ref<Projects>([]);
