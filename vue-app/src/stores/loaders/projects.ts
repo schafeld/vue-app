@@ -3,22 +3,36 @@ import { useMemoize } from "@vueuse/core";
 import type { Projects, SingleProject } from "@/utils/supabaseQueries";
 
 export const useProjectsStore = defineStore("projects-store", () => {
-  const projects = ref<Projects>([]);
-  const singleProject = ref<SingleProject>();
+  const projects = ref<Projects | null>(null);
+  const singleProject = ref<SingleProject | null>(null);
   const loading = ref(true);
   const error = ref<string | null>(null);
   const loadProjects = useMemoize(async (key: string) => await projectsQuery);
   const loadProject = useMemoize(async (slug: string) => await singleProjectQuery(slug));
 
-  const validateCache = () => {
-    if (projects.value?.length) {
-      projectsQuery.then(({ data, error }) => {
-        if (JSON.stringify(projects.value) === JSON.stringify(data)) {
+  interface ValidateCacheParams  {
+    ref: typeof projects | typeof singleProject;
+    query: typeof projectsQuery | typeof singleProjectQuery;
+    key: string;
+    loaderFn: typeof loadProjects | typeof loadProject;
+  }
+  const validateCache = ({
+    ref,
+    query,
+    key,
+    loaderFn
+  }: ValidateCacheParams) => {
+
+    if (ref.value) {
+      const actualQuery = typeof query === 'function' ? query(key) : query;
+
+      actualQuery.then(({ data, error }) => {
+        if (JSON.stringify(ref.value) === JSON.stringify(data)) {
           return;
         } else {
-          loadProjects.delete('projects'); // Clear the cache for 'projects' to force a fresh fetch
+          loaderFn.delete(key); // Clear the cache for 'projects' or 'tasks' to force a fresh fetch
           if (!error && data) {
-            projects.value = data; // Update projects with fresh data
+            ref.value = data; // Update projects with fresh data
           }
         }
       });
@@ -26,6 +40,8 @@ export const useProjectsStore = defineStore("projects-store", () => {
   }
 
   const getProjects = async () => {
+
+    projects.value = null; // Reset projects before fetching
 
     const { data, error: fetchError, status } = await loadProjects('projects');
 
@@ -41,11 +57,21 @@ export const useProjectsStore = defineStore("projects-store", () => {
     }
     loading.value = false;
 
-    validateCache();
+    validateCache(
+      {
+        ref: projects,
+        query: projectsQuery,
+        key: 'projects',
+        loaderFn: loadProjects
+      }
+    );
   };
 
 
   const getSingleProject = async (slug: string) => {
+    
+    singleProject.value = null; // Reset singleProject before fetching
+
     const { data, error, status } = await loadProject(slug);
 
     if (error) {
@@ -59,6 +85,15 @@ export const useProjectsStore = defineStore("projects-store", () => {
     if (data) {
       singleProject.value = data;
     }
+
+    validateCache(
+      {
+        ref: singleProject,
+        query: singleProjectQuery,
+        key: slug,
+        loaderFn: loadProject
+      }
+    );
   };
 
     return {
