@@ -1,11 +1,6 @@
 
 <script lang="ts" setup>
-// const value = defineModel<string>({
-//   default: "Default value...",
-//   type: String,
-//   required: true,
-// });
-const value = defineModel();
+    const value = defineModel();
 </script>
 
 <template>
