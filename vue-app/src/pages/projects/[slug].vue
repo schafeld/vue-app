@@ -1,13 +1,9 @@
 <script setup lang="ts">
-// import { singleProjectQuery } from "@/utils/supabaseQueries";
-// import type { SingleProject } from "@/utils/supabaseQueries";
 
 const router = useRouter();
-// const route = useRoute("/projects/[slug]");
 const { slug } = useRoute("/projects/[slug]").params;
 
 const goBack = () => {
-  // <button @click="goBack" class="hover:underline cursor-pointer">Go Back</button>
   if (router.options.history.state.back) {
     router.back();
   } else {
@@ -15,7 +11,6 @@ const goBack = () => {
   }
 };
 
-// const project = ref<SingleProject | null>(null);
 const projectsLoader = useProjectsStore();
 const { singleProject } = storeToRefs(projectsLoader);
 const { getSingleProject } = projectsLoader;
@@ -31,21 +26,6 @@ watch(
   },
   { immediate: true }
 );
-
-// const getProject = async () => {
-//   const { data, error, status } = await singleProjectQuery(route.params.slug as string);
-
-//   if (error) {
-//     console.error("Error fetching project:", error);
-//     useErrorStore().setError({
-//       // error: `Failed to fetch project: ${error.code}`, // this would be error type string
-//       error, // this is the PostgrestError type
-//       customCode: status,
-//     });
-//   } else {
-//     project.value = data;
-//   }
-// };
 
 await getSingleProject(slug);
 </script>
@@ -117,20 +97,6 @@ await getSingleProject(slug);
         <p class="text-muted-foreground text-sm font-semibold px-4 py-3">
           This project doesn't have documents yet...
         </p>
-        <!-- <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead> Name </TableHead>
-              <TableHead> Visibility </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell> Lorem ipsum dolor sit amet. </TableCell>
-              <TableCell> Private </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table> -->
       </div>
     </div>
   </section>
