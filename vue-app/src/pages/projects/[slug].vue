@@ -16,16 +16,11 @@ const { singleProject } = storeToRefs(projectsLoader);
 const { getSingleProject } = projectsLoader;
 
 watch(
-  singleProject,
-  (newProject) => {
-    if (newProject && newProject.name) {
-      usePageStore().pageData.title = `Project: ${newProject.name}`;
-    } else {
-      usePageStore().pageData.title = "Project: Loading...";
-    }
-  },
-  { immediate: true }
-);
+  () => singleProject.value?.name,
+  () => {
+    usePageStore().pageData.title = `Project: ${singleProject.value?.name || 'Loading...'}`
+  }
+)
 
 await getSingleProject(slug);
 </script>
@@ -35,7 +30,7 @@ await getSingleProject(slug);
     <button @click="goBack" class="hover:underline cursor-pointer">Go Back</button>
     <TableRow>
       <TableHead> Name </TableHead>
-      <TableCell> {{ singleProject.name }} </TableCell>
+      <TableCell> <AppInPlaceEditText v-model="singleProject.name" /> </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Description </TableHead>
