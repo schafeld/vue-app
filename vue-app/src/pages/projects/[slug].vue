@@ -30,7 +30,9 @@ await getSingleProject(slug);
     <button @click="goBack" class="hover:underline cursor-pointer">Go Back</button>
     <TableRow>
       <TableHead> Name </TableHead>
-      <TableCell> <AppInPlaceEditText v-model="singleProject.name" /> </TableCell>
+      <TableCell>
+        <AppInPlaceEditText v-model="singleProject.name" @commit="console.log('Name committed:', singleProject.name)" />
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Description </TableHead>
