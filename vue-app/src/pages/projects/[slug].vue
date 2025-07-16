@@ -13,7 +13,7 @@ const goBack = () => {
 
 const projectsLoader = useProjectsStore();
 const { singleProject } = storeToRefs(projectsLoader);
-const { getSingleProject } = projectsLoader;
+const { getSingleProject, updateProject } = projectsLoader;
 
 watch(
   () => singleProject.value?.name,
@@ -31,7 +31,7 @@ await getSingleProject(slug);
     <TableRow>
       <TableHead> Name </TableHead>
       <TableCell>
-        <AppInPlaceEditText v-model="singleProject.name" @commit="console.log('Name committed:', singleProject.name)" />
+        <AppInPlaceEditText v-model="singleProject.name" @commit="console.log('Name committed:', singleProject.name); updateProject()" />
       </TableCell>
     </TableRow>
     <TableRow>

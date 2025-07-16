@@ -1,4 +1,4 @@
-import { projectsQuery, singleProjectQuery } from "@/utils/supabaseQueries";
+import { projectsQuery, singleProjectQuery, updateProjectQuery } from "@/utils/supabaseQueries";
 import { useMemoize } from "@vueuse/core";
 import type { Projects, SingleProject } from "@/utils/supabaseQueries";
 
@@ -69,7 +69,7 @@ export const useProjectsStore = defineStore("projects-store", () => {
 
 
   const getSingleProject = async (slug: string) => {
-    
+
     singleProject.value = null; // Reset singleProject before fetching
 
     const { data, error, status } = await loadProject(slug);
@@ -96,10 +96,40 @@ export const useProjectsStore = defineStore("projects-store", () => {
     );
   };
 
+  const updateProject = async () => {
+    if (!singleProject.value) {
+      console.error("No project to update");
+      return;
+    }
+
+    const { tasks, id, slug, ...projectProperties } = singleProject.value; // Exclude tasks, id, and extract slug from the update
+
+    try {
+      const { data, error } = await updateProjectQuery(projectProperties, id);
+      
+      if (error) {
+        console.error("Error updating project:", error);
+        useErrorStore().setError({
+          error,
+          customCode: 500, // Generic error code for update failures
+        });
+        return;
+      }
+
+      console.log("Project updated successfully:", data);
+      
+      // Optionally refresh the project data to ensure UI is in sync
+      await getSingleProject(slug);
+    } catch (err) {
+      console.error("Unexpected error updating project:", err);
+    }
+  }
+
     return {
       projects,
       getProjects,
       singleProject,
       getSingleProject,
+      updateProject,
     };
   })
