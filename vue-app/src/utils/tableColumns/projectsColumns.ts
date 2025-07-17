@@ -18,10 +18,22 @@ export const columns = (collabs: Ref<GroupedCollabs>): ColumnDef<Projects[0]>[] 
     accessorKey: 'status',
     header: () => h('div', { class: 'text-left' }, 'Status'),
     cell: ({ row }) => {
+      const { updateProjectInList } = useProjectsStore();
+      
       return h(
         'div',
         { class: 'text-left font-medium' },
-        h(AppInPlaceEditStatus, { modelValue: row.original.status })
+        h(AppInPlaceEditStatus, { 
+          modelValue: row.original.status,
+          'onUpdate:modelValue': (value: 'in-progress' | 'completed' | undefined) => {
+            if (value) {
+              row.original.status = value;
+            }
+          },
+          onCommit: () => {
+            updateProjectInList(row.original.id, { status: row.original.status });
+          }
+        })
       )
     }
   },
