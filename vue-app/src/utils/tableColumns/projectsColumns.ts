@@ -26,13 +26,13 @@ export const columns = (collabs: Ref<GroupedCollabs>): ColumnDef<Projects[0]>[] 
         h(AppInPlaceEditStatus, { 
           modelValue: row.original.status,
           readonly: true, // Set to false to allow bulk editing in list view
-          'onUpdate:modelValue': (value: 'in-progress' | 'completed' | undefined) => {
-        if (value) {
-          row.original.status = value;
-        }
-          },
+          // 'onUpdate:modelValue': (value: 'in-progress' | 'completed' | undefined) => {
+          //   if (value) {
+          //     row.original.status = value;
+          //   }
+          // },
           onCommit: () => {
-        updateProjectInList(row.original.id, { status: row.original.status });
+            updateProjectInList(row.original.id, { status: row.original.status });
           }
         })
       )
