@@ -295,3 +295,6 @@ For a production app, you'd want more restrictive policies, but this will work f
 - [ ] Add project description in the projects list (truncated with ellipsis)
 - [ ] Add ellipsis to project title in the project list
 - [ ] Add data export option? (later import/restore even?)
+- [ ] Vitgest/Jest
+- [ ] Storybook
+- [ ] E2E tests with Playwright
