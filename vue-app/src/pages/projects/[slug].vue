@@ -15,6 +15,16 @@ const projectsLoader = useProjectsStore();
 const { singleProject } = storeToRefs(projectsLoader);
 const { getSingleProject, updateProject } = projectsLoader;
 
+const handleProjectUpdate = (field: string) => {
+  // if (!singleProject.value) {
+  //   console.log('No project selected for update');
+  //   return;
+  // }
+  
+  // console.log(`${field} updated:`, singleProject.value[field as keyof typeof singleProject.value]);
+  updateProject();
+};
+
 watch(
   () => singleProject.value?.name,
   () => {
@@ -31,14 +41,14 @@ await getSingleProject(slug);
     <TableRow>
       <TableHead> Name </TableHead>
       <TableCell>
-        <AppInPlaceEditText v-model="singleProject.name" @commit="console.log('Name updated:', singleProject.name); updateProject()" />
+        <AppInPlaceEditText v-model="singleProject.name" @commit="handleProjectUpdate('name')" />
       </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Description </TableHead>
       <TableCell>
         <!-- {{ singleProject.description || "No description provided." }} -->
-        <AppInPlaceEditText v-model="singleProject.description" @commit="console.log('Description updated:', singleProject.description); updateProject()" />
+        <AppInPlaceEditText v-model="singleProject.description" @commit="handleProjectUpdate('description')" />
       </TableCell>
     </TableRow>
     <TableRow>
@@ -46,7 +56,7 @@ await getSingleProject(slug);
       <TableCell>
         <AppInPlaceEditStatus
           v-model="singleProject.status"
-          @commit="console.log('Status updated:', singleProject.status); updateProject()"
+          @commit="handleProjectUpdate('status')"
         />
       </TableCell>
     </TableRow>

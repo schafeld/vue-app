@@ -98,7 +98,7 @@ export const useProjectsStore = defineStore("projects-store", () => {
 
   const updateProject = async () => {
     if (!singleProject.value) {
-      console.error("No project to update");
+      // console.warn("No project to update");
       return;
     }
 
@@ -118,8 +118,12 @@ export const useProjectsStore = defineStore("projects-store", () => {
 
       console.log("Project updated successfully:", data);
       
+      // Update the memoized cache to force a fresh fetch next time
+      loadProject.delete(slug);
+      
       // Optionally refresh the project data to ensure UI is in sync
-      await getSingleProject(slug);
+      // Only do this if we want to fetch the latest data from server
+      // await getSingleProject(slug);
     } catch (err) {
       console.error("Unexpected error updating project:", err);
     }
