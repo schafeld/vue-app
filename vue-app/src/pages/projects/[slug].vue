@@ -31,13 +31,14 @@ await getSingleProject(slug);
     <TableRow>
       <TableHead> Name </TableHead>
       <TableCell>
-        <AppInPlaceEditText v-model="singleProject.name" @commit="console.log('Name committed:', singleProject.name); updateProject()" />
+        <AppInPlaceEditText v-model="singleProject.name" @commit="console.log('Name updated:', singleProject.name); updateProject()" />
       </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Description </TableHead>
       <TableCell>
-        {{ singleProject.description || "No description provided." }}
+        <!-- {{ singleProject.description || "No description provided." }} -->
+        <AppInPlaceEditText v-model="singleProject.description" @commit="console.log('Description updated:', singleProject.description); updateProject()" />
       </TableCell>
     </TableRow>
     <TableRow>
