@@ -43,7 +43,9 @@ await getSingleProject(slug);
     </TableRow>
     <TableRow>
       <TableHead> Status </TableHead>
-      <TableCell>In progress</TableCell>
+      <TableCell>
+        <AppInPlaceEditStatus v-model="singleProject.status" />
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Collaborators </TableHead>

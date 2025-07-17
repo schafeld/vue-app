@@ -47,7 +47,7 @@ export type Database = {
           id: string
           name: string
           slug: string
-          status: Database["public"]["Enums"]["current_status"] | null
+          status: Database["public"]["Enums"]["current_status"]
         }
         Insert: {
           collaborators?: string[]
@@ -56,7 +56,7 @@ export type Database = {
           id?: string
           name: string
           slug: string
-          status?: Database["public"]["Enums"]["current_status"] | null
+          status?: Database["public"]["Enums"]["current_status"]
         }
         Update: {
           collaborators?: string[]
@@ -65,7 +65,7 @@ export type Database = {
           id?: string
           name?: string
           slug?: string
-          status?: Database["public"]["Enums"]["current_status"] | null
+          status?: Database["public"]["Enums"]["current_status"]
         }
         Relationships: []
       }
