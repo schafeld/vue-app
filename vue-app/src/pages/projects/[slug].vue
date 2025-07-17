@@ -44,7 +44,10 @@ await getSingleProject(slug);
     <TableRow>
       <TableHead> Status </TableHead>
       <TableCell>
-        <AppInPlaceEditStatus v-model="singleProject.status" />
+        <AppInPlaceEditStatus
+          v-model="singleProject.status"
+          @commit="console.log('Status updated:', singleProject.status); updateProject()"
+        />
       </TableCell>
     </TableRow>
     <TableRow>
