@@ -288,3 +288,10 @@ For a production app, you'd want more restrictive policies, but this will work f
 - [ ] Add more tests, e.g. for the Supabase integration
 - [ ] Add more documentation, e.g. for the Supabase integration
 - [ ] Add more features based on [VueUse (Collection of Vue Composition Utilities)](https://vueuse.org/), e.g. for login password validation
+- [ ] Project title change also changes slug in the URL 
+- [ ] Add table sorting, reordering, and filtering capabilities
+- [ ] Add pagination to the project list
+- [ ] Add a project changed date field and display it (optionally) in the project list
+- [ ] Add project description in the projects list (truncated with ellipsis)
+- [ ] Add ellipsis to project title in the project list
+- [ ] Add data export option? (later import/restore even?)
