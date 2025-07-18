@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { get } from 'http';
+
 
 const router = useRouter();
 const { slug } = useRoute("/projects/[slug]").params;
@@ -27,6 +29,10 @@ watch(
 )
 
 await getSingleProject(slug);
+
+const { getProfilesByIds } = useCollabs();
+
+const collabs = await getProfilesByIds(singleProject.value?.collaborators || []); // differs from tutorial. better.
 </script>
 
 <template>
@@ -59,11 +65,11 @@ await getSingleProject(slug);
         <div class="flex">
           <Avatar
             class="-mr-4 border border-primary hover:scale-110 transition-transform"
-            v-for="collaborator in singleProject.collaborators"
-            :key="collaborator"
+            v-for="collaborator in collabs"
+            :key="collaborator.id"
           >
-            <RouterLink class="w-full h-full flex items-center justify-center" to="">
-              <AvatarImage src="" alt="" />
+            <RouterLink class="w-full h-full flex items-center justify-center" :to="{ name: '/users/[username]', params: { username: collaborator.username } }">
+              <AvatarImage :src="collaborator.avatar_url || ''" :alt="collaborator.full_name" />
               <AvatarFallback> </AvatarFallback>
             </RouterLink>
           </Avatar>
