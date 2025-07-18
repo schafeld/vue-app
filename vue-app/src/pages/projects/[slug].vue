@@ -16,12 +16,6 @@ const { singleProject } = storeToRefs(projectsLoader);
 const { getSingleProject, updateProject } = projectsLoader;
 
 const handleProjectUpdate = (field: string) => {
-  // if (!singleProject.value) {
-  //   console.log('No project selected for update');
-  //   return;
-  // }
-  
-  // console.log(`${field} updated:`, singleProject.value[field as keyof typeof singleProject.value]);
   updateProject();
 };
 
@@ -47,7 +41,6 @@ await getSingleProject(slug);
     <TableRow>
       <TableHead> Description </TableHead>
       <TableCell>
-        <!-- {{ singleProject.description || "No description provided." }} -->
         <AppInPlaceEditText v-model="singleProject.description" @commit="handleProjectUpdate('description')" />
       </TableCell>
     </TableRow>
