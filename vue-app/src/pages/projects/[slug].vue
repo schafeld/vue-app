@@ -95,7 +95,11 @@ const collabs = await getProfilesByIds(singleProject.value?.collaborators || [])
           </TableHeader>
           <TableBody>
             <TableRow v-for="task in singleProject.tasks" :key="task.id">
-              <TableCell> {{ task.name }} </TableCell>
+              <TableCell>
+                <RouterLink :to="{ name: '/tasks/[id]', params: { id: task.id } }">
+                  {{ task.name }}
+                </RouterLink>
+              </TableCell>
               <TableCell> {{ task.status }} </TableCell>
               <TableCell> {{ task.due_date }} </TableCell>
             </TableRow>
