@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { get } from 'http';
+import AppInPlaceEditTextarea from '@/components/AppInPlaceEdit/AppInPlaceEditTextarea.vue';
+// import { get } from 'http';
 
 
 const router = useRouter();
@@ -45,9 +46,9 @@ const collabs = await getProfilesByIds(singleProject.value?.collaborators || [])
       </TableCell>
     </TableRow>
     <TableRow>
-      <TableHead> Description </TableHead>
+      <TableHead class="align-top pt-3"> Description </TableHead>
       <TableCell>
-        <AppInPlaceEditText v-model="singleProject.description" @commit="handleProjectUpdate('description')" />
+        <AppInPlaceEditTextarea v-model="singleProject.description" @commit="handleProjectUpdate('description')" />
       </TableCell>
     </TableRow>
     <TableRow>
