@@ -1,11 +1,11 @@
 import type { ColumnDef } from "@tanstack/vue-table";
-// import type { Tables } from '../../../database/types';
 import { RouterLink } from 'vue-router';
+import { h } from 'vue';
 import type { Projects } from '@/utils/supabaseQueries';
 import type { GroupedCollabs } from "@/types/GroupedCollabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import AppInPlaceEditStatus from "@/components/AppInPlaceEdit/AppInPlaceEditStatus.vue";
 
-// export const columns: ColumnDef<Tables<'projects'>>[] = [
 export const columns = (collabs: Ref<GroupedCollabs>): ColumnDef<Projects[0]>[] => [
   {
     accessorKey: 'name',
@@ -17,7 +17,26 @@ export const columns = (collabs: Ref<GroupedCollabs>): ColumnDef<Projects[0]>[] 
   {
     accessorKey: 'status',
     header: () => h('div', { class: 'text-left' }, 'Status'),
-    cell: ({ row }) => row.getValue('status'),
+    cell: ({ row }) => {
+      const { updateProjectInList } = useProjectsStore();
+      
+      return h(
+        'div',
+        { class: 'text-left font-medium' },
+        h(AppInPlaceEditStatus, { 
+          modelValue: row.original.status,
+          readonly: true, // Set to false to allow bulk editing in list view
+          // 'onUpdate:modelValue': (value: 'in-progress' | 'completed' | undefined) => {
+          //   if (value) {
+          //     row.original.status = value;
+          //   }
+          // },
+          onCommit: () => {
+            updateProjectInList(row.original.id, { status: row.original.status });
+          }
+        })
+      )
+    }
   },
   {
     accessorKey: 'slug',

@@ -1,13 +1,12 @@
 <script setup lang="ts">
-// import { singleProjectQuery } from "@/utils/supabaseQueries";
-// import type { SingleProject } from "@/utils/supabaseQueries";
+import AppInPlaceEditTextarea from '@/components/AppInPlaceEdit/AppInPlaceEditTextarea.vue';
+// import { get } from 'http';
+
 
 const router = useRouter();
-// const route = useRoute("/projects/[slug]");
 const { slug } = useRoute("/projects/[slug]").params;
 
 const goBack = () => {
-  // <button @click="goBack" class="hover:underline cursor-pointer">Go Back</button>
   if (router.options.history.state.back) {
     router.back();
   } else {
@@ -15,39 +14,26 @@ const goBack = () => {
   }
 };
 
-// const project = ref<SingleProject | null>(null);
 const projectsLoader = useProjectsStore();
 const { singleProject } = storeToRefs(projectsLoader);
-const { getSingleProject } = projectsLoader;
+const { getSingleProject, updateProject } = projectsLoader;
+
+const handleProjectUpdate = (field: string) => {
+  updateProject();
+};
 
 watch(
-  singleProject,
-  (newProject) => {
-    if (newProject && newProject.name) {
-      usePageStore().pageData.title = `Project: ${newProject.name}`;
-    } else {
-      usePageStore().pageData.title = "Project: Loading...";
-    }
-  },
-  { immediate: true }
-);
-
-// const getProject = async () => {
-//   const { data, error, status } = await singleProjectQuery(route.params.slug as string);
-
-//   if (error) {
-//     console.error("Error fetching project:", error);
-//     useErrorStore().setError({
-//       // error: `Failed to fetch project: ${error.code}`, // this would be error type string
-//       error, // this is the PostgrestError type
-//       customCode: status,
-//     });
-//   } else {
-//     project.value = data;
-//   }
-// };
+  () => singleProject.value?.name,
+  () => {
+    usePageStore().pageData.title = `Project: ${singleProject.value?.name || 'Loading...'}`
+  }
+)
 
 await getSingleProject(slug);
+
+const { getProfilesByIds } = useCollabs();
+
+const collabs = await getProfilesByIds(singleProject.value?.collaborators || []); // differs from tutorial. better.
 </script>
 
 <template>
@@ -55,17 +41,24 @@ await getSingleProject(slug);
     <button @click="goBack" class="hover:underline cursor-pointer">Go Back</button>
     <TableRow>
       <TableHead> Name </TableHead>
-      <TableCell> {{ singleProject.name }} </TableCell>
+      <TableCell>
+        <AppInPlaceEditText v-model="singleProject.name" @commit="handleProjectUpdate('name')" />
+      </TableCell>
     </TableRow>
     <TableRow>
-      <TableHead> Description </TableHead>
+      <TableHead class="align-top pt-3"> Description </TableHead>
       <TableCell>
-        {{ singleProject.description || "No description provided." }}
+        <AppInPlaceEditTextarea v-model="singleProject.description" @commit="handleProjectUpdate('description')" />
       </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Status </TableHead>
-      <TableCell>In progress</TableCell>
+      <TableCell>
+        <AppInPlaceEditStatus
+          v-model="singleProject.status"
+          @commit="handleProjectUpdate('status')"
+        />
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Collaborators </TableHead>
@@ -73,11 +66,11 @@ await getSingleProject(slug);
         <div class="flex">
           <Avatar
             class="-mr-4 border border-primary hover:scale-110 transition-transform"
-            v-for="collaborator in singleProject.collaborators"
-            :key="collaborator"
+            v-for="collaborator in collabs"
+            :key="collaborator.id"
           >
-            <RouterLink class="w-full h-full flex items-center justify-center" to="">
-              <AvatarImage src="" alt="" />
+            <RouterLink class="w-full h-full flex items-center justify-center" :to="{ name: '/users/[username]', params: { username: collaborator.username } }">
+              <AvatarImage :src="collaborator.avatar_url || ''" :alt="collaborator.full_name" />
               <AvatarFallback> </AvatarFallback>
             </RouterLink>
           </Avatar>
@@ -103,8 +96,19 @@ await getSingleProject(slug);
           </TableHeader>
           <TableBody>
             <TableRow v-for="task in singleProject.tasks" :key="task.id">
-              <TableCell> {{ task.name }} </TableCell>
-              <TableCell> {{ task.status }} </TableCell>
+              <TableCell>
+                <RouterLink 
+                class="text-left block hover:underline hover:bg-muted p-4"
+                :to="{ name: '/tasks/[id]', params: { id: task.id } }">
+                  {{ task.name }}
+                </RouterLink>
+              </TableCell>
+              <TableCell>
+                <AppInPlaceEditStatus
+                  v-model="task.status"
+                  readonly
+                />
+              </TableCell>
               <TableCell> {{ task.due_date }} </TableCell>
             </TableRow>
           </TableBody>
@@ -117,20 +121,6 @@ await getSingleProject(slug);
         <p class="text-muted-foreground text-sm font-semibold px-4 py-3">
           This project doesn't have documents yet...
         </p>
-        <!-- <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead> Name </TableHead>
-              <TableHead> Visibility </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell> Lorem ipsum dolor sit amet. </TableCell>
-              <TableCell> Private </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table> -->
       </div>
     </div>
   </section>
