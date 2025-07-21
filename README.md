@@ -299,5 +299,5 @@ For a production app, you'd want more restrictive policies, but this will work f
 - [ ] Storybook
 - [ ] E2E tests with Playwright
 - [ ] Add search (against backend in case of large data set)
-- [ ] Fix: Readonly status icons should not have links
+- [ ] Fix: Readonly status icons should *not* have links. Icons should have alt text.
 - [ ] Use status icons in the tasks list
