@@ -21,7 +21,16 @@ const { profile } = storeToRefs(useAuthStore())
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>
+          <RouterLink 
+            :to="{ 
+              name: '/users/[username]',
+              params: { username: profile.username }
+            }"
+            class="w-full h-full">
+            Profile
+          </RouterLink>
+        </DropdownMenuItem>
         <DropdownMenuItem>Billing</DropdownMenuItem>
         <DropdownMenuItem>Team</DropdownMenuItem>
         <DropdownMenuItem>Subscription</DropdownMenuItem>
