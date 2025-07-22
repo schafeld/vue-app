@@ -58,9 +58,30 @@ const handleLinkClick = async (title: string) => {
     class="flex flex-col h-screen gap-2 fixed bg-muted/40 lg:w-52 w-16 transition-[width]"
   >
     <div class="flex h-16 items-center px-2 lg:px-4 shrink-0 gap-1 justify-between">
+
       <Button variant="outline" size="icon" class="w-8 h-8">
         <iconify-icon icon="lucide:menu"></iconify-icon>
       </Button>
+
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        <Avatar class="border border-gray-500">
+          <AvatarImage src="https://avatars.githubusercontent.com/u/5053821?v=4" alt="Olli"/>
+          <AvatarFallback>OS</AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>Billing</DropdownMenuItem>
+        <DropdownMenuItem>Team</DropdownMenuItem>
+        <DropdownMenuItem>Subscription</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+
+
+
 
       <Button variant="outline" size="icon" class="w-8 h-8">
         <iconify-icon icon="lucide:plus"></iconify-icon>
