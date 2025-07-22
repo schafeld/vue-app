@@ -51,6 +51,8 @@ const handleLinkClick = async (title: string) => {
     }
   }
 };
+
+defineEmits(['open-new-task', 'open-new-project']);
 </script>
 
 <template>
@@ -71,10 +73,10 @@ const handleLinkClick = async (title: string) => {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent>
-        <DropdownMenuItem>
+        <DropdownMenuItem @click="$emit('open-new-task')">
           Task
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem @click="$emit('open-new-project')">
           Project
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -82,10 +84,6 @@ const handleLinkClick = async (title: string) => {
 
 
 
-
-      <!-- <Button variant="outline" size="icon" class="w-8 h-8">
-        <iconify-icon icon="lucide:plus"></iconify-icon>
-      </Button> -->
     </div>
     <nav class="flex flex-col gap-2 justify-between h-full relative">
       <div class="sidebar-links">
