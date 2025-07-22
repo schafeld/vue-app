@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { profile } = storeToRefs(useAuthStore())
 </script>
 
 <template>
@@ -10,7 +11,7 @@
       ></iconify-icon>
       <Input class="w-full pl-8 bg-background" type="text" placeholder="Search ..." />
     </form>
-    <DropdownMenu>
+    <DropdownMenu v-if="profile">
       <DropdownMenuTrigger>
         <Avatar class="border border-gray-500">
           <AvatarImage src="https://avatars.githubusercontent.com/u/5053821?v=4" alt="Olli"/>
