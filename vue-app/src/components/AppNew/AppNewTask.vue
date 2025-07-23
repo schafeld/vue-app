@@ -4,17 +4,15 @@ const sheetOpen = defineModel<boolean>();
 
 <template>
     <Sheet v-model:open="sheetOpen" class="w-full max-w-2xl">
-      <!-- <SheetTrigger>Open</SheetTrigger> -->
+
       <SheetContent>
         <SheetHeader>
           <SheetTitle>Create new task</SheetTitle>
-          <!-- <SheetDescription>
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-          </SheetDescription> -->
-        </SheetHeader>
 
-        <p>Content</p>
+        </SheetHeader>
+            <div class="ml-4" >
+                <FormKit type="text" name="taskName" label="Task Name" placeholder="Enter task name" />
+            </div>
       </SheetContent>
     </Sheet>
 </template>
