@@ -1,6 +1,57 @@
 <script setup lang="ts">
 import type { CreateNewTask } from '@/types/CreateNewForm';
+import { projectsQuery, profilesQuery } from '@/utils/supabaseQueries';
 const sheetOpen = defineModel<boolean>();
+
+type SelectOption = {
+  label: string;
+  value: number | string;
+};
+
+const selectOptions = ref({
+  projects: [] as SelectOption[],
+  profiles: [] as SelectOption[]
+});
+
+const getProjectsOptions = async () => {
+  const { data: allProjects } = await projectsQuery;
+
+  if(!allProjects) {
+    console.error('No projects found');
+    return;
+  }
+  allProjects.forEach((project) => {
+    selectOptions.value.projects.push({
+      label: project.name,
+      value: project.id
+    });
+  });
+}
+
+const getProfilesOptions = async () => {
+  const { data: allProfiles } = await profilesQuery;
+
+  if(!allProfiles) {
+    console.error('No profiles found');
+    return;
+  }
+  allProfiles.forEach((profile) => {
+    selectOptions.value.profiles.push({
+      label: profile.full_name,
+      value: profile.id
+    });
+  });
+}
+
+const getOptions = async () => {
+  await Promise.all([
+    getProjectsOptions(),
+    getProfilesOptions()
+  ]);
+};
+
+getOptions();
+  
 
 const createTask = async (formData: CreateNewTask) => {
   // Logic to create a new task
@@ -32,7 +83,7 @@ const createTask = async (formData: CreateNewTask) => {
                   id="profile_id"
                   label="User"
                   placeholder="Select a user"
-                  :options="[{ label: 'Select a user', value: 1 }]"
+                  :options="selectOptions.profiles"
                 />
                 <FormKit
                   type="select"
@@ -40,7 +91,7 @@ const createTask = async (formData: CreateNewTask) => {
                   id="project_id"
                   label="Project"
                   placeholder="Select a project"
-                  :options="[{ label: 'Select a project', value: 1 }]"
+                  :options="selectOptions.projects"
                 />
                 <FormKit
                   type="textarea"
