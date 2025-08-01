@@ -98,9 +98,19 @@ export const useTasksStore = defineStore('tasks-store', () => {
   }
 
   const deleteTask = async () => {
-    if (!task.value) return
+    if (!task.value) return { error: new Error('No task to delete') }
 
-    await deleteTaskQuery(task.value.id)
+    const { error } = await deleteTaskQuery(task.value.id)
+    
+    if (error) {
+      useErrorStore().setError({ error, customCode: 500 })
+      return { error }
+    }
+    
+    // Clear the current task after successful deletion
+    task.value = null
+    
+    return { error: null }
   }
 
   return {

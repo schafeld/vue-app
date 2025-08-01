@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import { singleTaskQuery } from "@/utils/supabaseQueries";
+import { singleTaskQuery, deleteTaskQuery } from "@/utils/supabaseQueries";
 import type { SingleTask } from "@/utils/supabaseQueries";
 
 const route = useRoute("/tasks/[id]");
 
 const task = ref<SingleTask | null>(null);
+
+// This loader and the ref may introduce redundancies, todo?
+const tasksLoader = useTasksStore();
+const { deleteTask } = tasksLoader;
 
 watch(
   task,
@@ -24,7 +28,6 @@ const getTask = async () => {
   if (error) {
     console.error("Error fetching task:", error);
     useErrorStore().setError({
-      // error: `Failed to fetch task: ${error.code}`, // this would be error type string
       error, // this is the PostgrestError type
       customCode: status,
     });
@@ -34,6 +37,38 @@ const getTask = async () => {
 };
 
 await getTask();
+
+// Here too parts of code missing/differing compared to tutorial
+// https://vueschool.io/lessons/delete-tasks
+
+const router = useRouter();
+
+const isDeleteInProgress = ref(false);
+
+const triggerDelete = async () => {
+  if (!task.value) return;
+
+  isDeleteInProgress.value = true;
+  const confirmed = confirm(`Are you sure you want to delete the task: ${task.value.name}?`);
+  if (confirmed) {
+    const { error } = await deleteTaskQuery(task.value.id);
+    
+    if (error) {
+      console.error("Error deleting task:", error);
+      useErrorStore().setError({
+        error,
+        customCode: 500,
+      });
+      isDeleteInProgress.value = false;
+    } else {
+      // Task deleted successfully, navigate to tasks list
+      router.push("/tasks");
+    }
+  } else {
+    isDeleteInProgress.value = false;
+  }
+};
+
 </script>
 
 <template>
@@ -120,9 +155,9 @@ await getTask();
       </TableRow>
     </Table>
 
-    <Button variant="destructive" class="mt-4 self-end w-full max-w-40">
-      <iconify-icon icon="lucide:trash-2" class="mr-2"></iconify-icon>
-      <iconify-icon icon="lucide:loader-circle" class="mr-2 animate-spin"></iconify-icon>
+    <Button @click="triggerDelete" variant="destructive" class="mt-4 self-end w-full max-w-40">
+      <iconify-icon icon="lucide:loader-circle" class="mr-2 animate-spin" v-if="isDeleteInProgress"></iconify-icon>
+      <iconify-icon icon="lucide:trash-2" class="mr-2" v-else></iconify-icon>
       Delete Task
     </Button>
   </div>
