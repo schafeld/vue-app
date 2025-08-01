@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { CreateNewTask } from '@/types/CreateNewForm';
-import { projectsQuery, profilesQuery } from '@/utils/supabaseQueries';
+import { projectsQuery, profilesQuery, createNewTaskQuery } from '@/utils/supabaseQueries';
 const sheetOpen = defineModel<boolean>();
 
 type SelectOption = {
@@ -51,18 +51,21 @@ const getOptions = async () => {
 };
 
 getOptions();
-  
+
+const { profile } = storeToRefs(useAuthStore());
 
 const createTask = async (formData: CreateNewTask) => {
-  // Logic to create a new task
-  console.log('Creating new task...');
+  const task = {
+    ...formData,
+    collaborators: [profile.value!.id],
+  };
+  const { error } = await createNewTaskQuery(task);
 
-  await new Promise((resolve) => setTimeout(
-    () => {
-      resolve(console.log('Task created successfully!', formData));
-    }, 2000)); // Simulate API call
-
-  // sheetOpen.value = false; // Close the sheet after creating the task
+  if (error) {
+    console.error('Error creating task:', error);
+    return;
+  }
+  sheetOpen.value = false;
 };
 </script>
 
@@ -75,8 +78,20 @@ const createTask = async (formData: CreateNewTask) => {
 
         </SheetHeader>
             <div class="ml-4" >
-              <FormKit type="form" @submit="createTask" submit-label="Create Task">
-                <FormKit type="text" name="taskName" id="taskName" label="Task Name" placeholder="Enter new task name" />
+              <FormKit 
+                type="form" 
+                @submit="createTask" 
+                submit-label="Create Task"
+                :config="{ validationVisibility: 'submit' }"
+                >
+                <FormKit 
+                  type="text" 
+                  name="taskName" 
+                  id="taskName" 
+                  label="Task Name" 
+                  placeholder="Enter new task name" 
+                  validation="required | length:1,255"
+                />
                 <FormKit
                   type="select"
                   name="profile_id"
@@ -84,6 +99,7 @@ const createTask = async (formData: CreateNewTask) => {
                   label="User"
                   placeholder="Select a user"
                   :options="selectOptions.profiles"
+                  validation="required"
                 />
                 <FormKit
                   type="select"
@@ -92,6 +108,7 @@ const createTask = async (formData: CreateNewTask) => {
                   label="Project"
                   placeholder="Select a project"
                   :options="selectOptions.projects"
+                  validation="required"
                 />
                 <FormKit
                   type="textarea"
