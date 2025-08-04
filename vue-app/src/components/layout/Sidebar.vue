@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useWindowSize } from "@vueuse/core";
+
 const links = [
   {
     title: "Dashboard",
@@ -53,15 +55,28 @@ const handleLinkClick = async (title: string) => {
 };
 
 defineEmits(['open-new-task', 'open-new-project']);
+
+const { isMenuOpen, toggleMenu } = useMenu();
+const windowWidth = useWindowSize().width;
+
+watchEffect(() => {
+  if (windowWidth.value < 768) {
+    isMenuOpen.value = false; // Collapse menu on small screens
+  } else {
+    isMenuOpen.value = true; // Expand menu on larger screens
+  }
+});
 </script>
 
 <template>
+  <!-- lg:w-52 -->
   <aside
-    class="flex flex-col h-screen gap-2 fixed bg-muted/40 lg:w-52 w-24 transition-[width]"
+    class="flex flex-col h-screen gap-2 fixed bg-muted/40  transition-[width]"
+    :class="{ 'w-52': isMenuOpen, 'w-24': !isMenuOpen }"
   >
     <div class="flex h-16 items-center px-2 lg:px-4 shrink-0 gap-1 justify-between">
 
-      <Button variant="outline" size="icon" class="w-8 h-8">
+      <Button @click="toggleMenu" variant="outline" size="icon" class="w-8 h-8">
         <iconify-icon icon="lucide:menu"></iconify-icon>
       </Button>
 
