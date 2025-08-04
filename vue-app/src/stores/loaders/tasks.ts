@@ -1,13 +1,3 @@
-/*
-Tutorial skipped this step?
-https://vueschool.io/lessons/delete-tasks
-
-copied stuff over from
-https://github.com/vueschool/vuejs-masterclass-2024-edition/blob/121.use-vue-meta-to-set-dynamic-title-and-meta-data/src/stores/loaders/tasks.ts
-
-added/fixed typing
-*/
-
 import {
   deleteTaskQuery,
   singleTaskQuery,
@@ -29,7 +19,7 @@ export const useTasksStore = defineStore('tasks-store', () => {
 
   type ValidateCacheParams<K> = {
     ref: typeof tasks | typeof task
-    query: typeof tasksWithProjectsQuery | typeof singleTaskQuery
+    query: ((key: K) => Promise<any>) | Promise<any>
     key: K
     loaderFn: LoaderFnWithDelete<K>
   }
@@ -65,7 +55,7 @@ export const useTasksStore = defineStore('tasks-store', () => {
 
     validateCache<string>({
       ref: tasks,
-      query: tasksWithProjectsQuery,
+      query: loadTasks,
       key: 'tasks',
       loaderFn: loadTasks
     })
@@ -82,7 +72,7 @@ export const useTasksStore = defineStore('tasks-store', () => {
 
     validateCache<number>({
       ref: task,
-      query: singleTaskQuery,
+      query: loadTask,
       key: id,
       loaderFn: loadTask
     })
