@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { menuKey } from '@/utils/injectionKeys';
   import { useRoute } from 'vue-router';
 
   const route = useRoute();
@@ -7,7 +8,15 @@
 
   const taskSheetOpen = ref(false); 
 
-  const { isMenuOpen } = useMenu();
+  const isMenuOpen = ref(false);
+  const toggleMenu = () => {
+    isMenuOpen.value = !isMenuOpen.value;
+  };
+
+  provide(menuKey, {
+    isMenuOpen,
+    toggleMenu,
+  });
 </script>
 
 <template>

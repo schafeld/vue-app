@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { menuKey } from "@/utils/injectionKeys";
+import type { MenuInjectionOptions } from "@/utils/injectionKeys";
 import { useWindowSize } from "@vueuse/core";
 
 const links = [
@@ -56,7 +58,8 @@ const handleLinkClick = async (title: string) => {
 
 defineEmits(['open-new-task', 'open-new-project']);
 
-const { isMenuOpen, toggleMenu } = useMenu();
+const { isMenuOpen, toggleMenu } = inject(menuKey) as MenuInjectionOptions;
+
 const windowWidth = useWindowSize().width;
 
 watchEffect(() => {
