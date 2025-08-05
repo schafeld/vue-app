@@ -1,53 +1,52 @@
-/**
- * Composable for easy page title management
- * Provides reactive title setting with browser title synchronization
- */
-export const usePageTitle = () => {
-  const pageStore = usePageStore();
+import type { ComputedRef, WatchSource } from 'vue'
 
-  /**
-   * Set the page title and optionally update the browser title
-   * @param title - The title to set
-   * @param updateBrowserTitle - Whether to update the document title (default: true)
-   */
-  const setTitle = (title: string, updateBrowserTitle = true) => {
-    pageStore.setPageTitle(title, updateBrowserTitle);
-  };
+type TitleFunction = () => string
+type WatchDependency = WatchSource<unknown>
 
-  /**
-   * Set a dynamic title that updates when dependencies change
-   * @param titleFn - A function that returns the title
-   * @param dependencies - Reactive dependencies to watch
-   */
+interface UsePageTitleReturn {
+  setTitle: (title: string, updateBrowserTitle?: boolean) => void
+  setDynamicTitle: (
+    titleFn: TitleFunction,
+    dependencies?: WatchDependency[],
+    updateBrowserTitle?: boolean
+  ) => void
+  resetTitle: () => void
+  title: ComputedRef<string>
+}
+
+export const usePageTitle = (): UsePageTitleReturn => {
+  const pageStore = usePageStore()
+
+  const setTitle = (title: string, updateBrowserTitle = true): void => {
+    pageStore.setPageTitle(title, updateBrowserTitle)
+  }
+
   const setDynamicTitle = (
-    titleFn: () => string,
-    dependencies: any[] = [],
+    titleFn: TitleFunction,
+    dependencies: WatchDependency[] = [],
     updateBrowserTitle = true
-  ) => {
+  ): void => {
     // Set initial title
-    setTitle(titleFn(), updateBrowserTitle);
+    setTitle(titleFn(), updateBrowserTitle)
 
     // Watch dependencies and update title when they change
     watch(
       dependencies,
       () => {
-        setTitle(titleFn(), updateBrowserTitle);
+        setTitle(titleFn(), updateBrowserTitle)
       },
       { immediate: false }
-    );
-  };
+    )
+  }
 
-  /**
-   * Reset the page title
-   */
-  const resetTitle = () => {
-    pageStore.resetTitle();
-  };
+  const resetTitle = (): void => {
+    pageStore.resetTitle()
+  }
 
   return {
     setTitle,
     setDynamicTitle,
     resetTitle,
     title: computed(() => pageStore.pageData.title),
-  };
-};
+  }
+}
