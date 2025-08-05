@@ -46,6 +46,7 @@ declare module 'vue' {
     GuestLayout: typeof import('./src/components/layout/main/GuestLayout.vue')['default']
     Input: typeof import('./src/components/ui/input/Input.vue')['default']
     Label: typeof import('./src/components/ui/label/Label.vue')['default']
+    Page: typeof import('./src/components/storyblok/Page.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Separator: typeof import('./src/components/ui/separator/Separator.vue')['default']
@@ -69,6 +70,7 @@ declare module 'vue' {
     TableHead: typeof import('./src/components/ui/table/TableHead.vue')['default']
     TableHeader: typeof import('./src/components/ui/table/TableHeader.vue')['default']
     TableRow: typeof import('./src/components/ui/table/TableRow.vue')['default']
+    Teaser: typeof import('./src/components/storyblok/Teaser.vue')['default']
     TopNavbar: typeof import('./src/components/layout/TopNavbar.vue')['default']
   }
 }

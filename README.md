@@ -303,3 +303,12 @@ For a production app, you'd want more restrictive policies, but this will work f
 - [ ] Use status icons in the tasks list
 - [ ] Add projects features to tasks list too (e.g. collaborators – ensure multi-collaborator works too; add uuid users to database)
 - [ ] Refactor to better software architecture, other state management, or such?
+
+
+## Experimental Storyblok integration
+
+https://www.storyblok.com/technologies#vue
+
+```bash
+npm i @storyblok/vue
+```
