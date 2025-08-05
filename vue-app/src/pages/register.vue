@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { register } from "@/utils/supabaseAuth";
 
+// Set page title for register page
+usePageStore().setPageTitle('Register');
+
 const formData = ref({
   username: "",
   firstName: "",

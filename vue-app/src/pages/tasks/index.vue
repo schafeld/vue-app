@@ -3,7 +3,7 @@ import { tasksWithProjectsQuery } from "@/utils/supabaseQueries";
 import type { TasksWithProjects } from "@/utils/supabaseQueries";
 import { columns } from "@/utils/tableColumns/tasksColumns";
 
-usePageStore().pageData.title = "Tasks";
+usePageStore().setPageTitle("Tasks");
 
 const tasks = ref<TasksWithProjects | null>(null);
 const loading = ref(true);
