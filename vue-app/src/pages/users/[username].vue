@@ -4,7 +4,7 @@ import { profileQuery } from "@/utils/supabaseQueries";
 
 const { username } = useRoute("/users/[username]").params;
 
-usePageStore().pageData.title = `User: ${username}`; // without this the headline might show the project name of the page that linked to user profile
+usePageStore().setPageTitle(`User: ${username}`); // without this the headline might show the project name of the page that linked to user profile
 
 const profile = ref<Tables<"profiles"> | null>(null);
 const loading = ref(true);

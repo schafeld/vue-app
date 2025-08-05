@@ -3,6 +3,9 @@ import { login } from "@/utils/supabaseAuth";
 import { useRouter } from "vue-router";
 import { watchDebounced } from "@vueuse/core";
 
+// Set page title for login page
+usePageStore().setPageTitle('Login');
+
 const formData = ref({
   email: "",
   password: "",

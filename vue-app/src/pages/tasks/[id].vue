@@ -14,9 +14,9 @@ watch(
   task,
   (newTask) => {
     if (newTask && newTask.name) {
-      usePageStore().pageData.title = `Task: ${newTask.name}`;
+      usePageStore().setPageTitle(`Task: ${newTask.name}`);
     } else {
-      usePageStore().pageData.title = "Task: Loading...";
+      usePageStore().setPageTitle("Task: Loading...");
     }
   },
   { immediate: true }

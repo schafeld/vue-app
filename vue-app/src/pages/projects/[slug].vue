@@ -22,12 +22,11 @@ const handleProjectUpdate = (field: string) => {
   updateProject();
 };
 
-watch(
-  () => singleProject.value?.name,
-  () => {
-    usePageStore().pageData.title = `Project: ${singleProject.value?.name || 'Loading...'}`
-  }
-)
+// Set dynamic title that updates when project name changes
+usePageTitle().setDynamicTitle(
+  () => `Project: ${singleProject.value?.name || 'Loading...'}`,
+  [() => singleProject.value?.name]
+);
 
 await getSingleProject(slug);
 
