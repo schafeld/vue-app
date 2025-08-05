@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { menuKey } from "@/utils/injectionKeys";
+import type { MenuInjectionOptions } from "@/utils/injectionKeys";
+import { useWindowSize } from "@vueuse/core";
+
 const links = [
   {
     title: "Dashboard",
@@ -53,36 +57,48 @@ const handleLinkClick = async (title: string) => {
 };
 
 defineEmits(['open-new-task', 'open-new-project']);
+
+const { isMenuOpen, toggleMenu } = inject(menuKey) as MenuInjectionOptions;
+
+const windowWidth = useWindowSize().width;
+
+watchEffect(() => {
+  if (windowWidth.value < 768) {
+    isMenuOpen.value = false; // Collapse menu on small screens
+  } else {
+    isMenuOpen.value = true; // Expand menu on larger screens
+  }
+});
 </script>
 
 <template>
+  <!-- lg:w-52 -->
   <aside
-    class="flex flex-col h-screen gap-2 fixed bg-muted/40 lg:w-52 w-16 transition-[width]"
+    class="flex flex-col h-screen gap-2 fixed bg-muted/40  transition-[width]"
+    :class="{ 'w-52': isMenuOpen, 'w-24': !isMenuOpen }"
   >
     <div class="flex h-16 items-center px-2 lg:px-4 shrink-0 gap-1 justify-between">
 
-      <Button variant="outline" size="icon" class="w-8 h-8">
+      <Button @click="toggleMenu" variant="outline" size="icon" class="w-8 h-8">
         <iconify-icon icon="lucide:menu"></iconify-icon>
       </Button>
 
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Button variant="outline" size="icon" class="w-8 h-8">
-          <iconify-icon icon="lucide:plus"></iconify-icon>
-        </Button>
-      </DropdownMenuTrigger>
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Button variant="outline" size="icon" class="w-8 h-8">
+            <iconify-icon icon="lucide:plus"></iconify-icon>
+          </Button>
+        </DropdownMenuTrigger>
 
-      <DropdownMenuContent>
-        <DropdownMenuItem @click="$emit('open-new-task')">
-          Task
-        </DropdownMenuItem>
-        <DropdownMenuItem @click="$emit('open-new-project')">
-          Project
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-
-
+        <DropdownMenuContent>
+          <DropdownMenuItem @click="$emit('open-new-task')">
+            Task
+          </DropdownMenuItem>
+          <DropdownMenuItem @click="$emit('open-new-project')">
+            Project
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
 
     </div>
     <nav class="flex flex-col gap-2 justify-between h-full relative">
