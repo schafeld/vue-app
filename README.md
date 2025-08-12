@@ -9,12 +9,7 @@ Demo app in Vue (Vue3, file-based routing, SupaBase, CRUD, Pinia, Tailwind,...)
 _Work in progress..._
 
 TBC – TO BE CONTINUED:
-https://vueschool.io/lessons/getting-started-with-shadcn-ui-and-vuejs
-https://github.com/vueschool/vuejs-masterclass-2024-edition/branches/all?query=&page=5
-https://supabase.com/dashboard/project/yuzzrmawywyywsjlnwff/editor
-
-State 2025-06-12, continue at:
-https://vueschool.io/lessons/register-new-users-with-supabase-auth-and-vue-js
+See TODO below for known bugs and ideas for improvement and addiitional features.
 
 ## Project setup
 
@@ -303,6 +298,9 @@ For a production app, you'd want more restrictive policies, but this will work f
 - [ ] Use status icons in the tasks list
 - [ ] Add projects features to tasks list too (e.g. collaborators – ensure multi-collaborator works too; add uuid users to database)
 - [ ] Refactor to better software architecture, other state management, or such?
+- [ ] User data should be consistent uuids (not ["1", "2", "3"]), compare tasks and projects listing. Make sure Supabase setup scripts create proper data for fresh projects.
+- [ ] Add proper/ more extensive examples for Builder.io integration
+- [ ] Add proper/ more extensive examples for Storyblok integration
 
 
 ## Experimental Storyblok integration
