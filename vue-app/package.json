@@ -24,6 +24,7 @@
   "dependencies": {
     "@builder.io/sdk-vue": "^4.1.3",
     "@formkit/vue": "^1.6.9",
+    "@storyblok/vue": "^9.2.1",
     "@supabase/supabase-js": "^2.49.4",
     "@tailwindcss/vite": "^4.1.7",
     "@tanstack/vue-table": "^8.21.3",
