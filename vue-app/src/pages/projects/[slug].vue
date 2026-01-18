@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import AppInPlaceEditTextarea from '@/components/AppInPlaceEdit/AppInPlaceEditTextarea.vue';
-// import { get } from 'http';
-
-
 const router = useRouter();
 const { slug } = useRoute("/projects/[slug]").params;
 
@@ -24,7 +20,7 @@ const handleProjectUpdate = (field: string) => {
 
 // Set dynamic title that updates when project name changes
 usePageTitle().setDynamicTitle(
-  () => `Project: ${singleProject.value?.name || 'Loading...'}`,
+  () => `Project: ${singleProject.value?.name || "Loading..."}`,
   [() => singleProject.value?.name]
 );
 
@@ -41,13 +37,19 @@ const collabs = await getProfilesByIds(singleProject.value?.collaborators || [])
     <TableRow>
       <TableHead> Name </TableHead>
       <TableCell>
-        <AppInPlaceEditText v-model="singleProject.name" @commit="handleProjectUpdate('name')" />
+        <AppInPlaceEditText
+          v-model="singleProject.name"
+          @commit="handleProjectUpdate('name')"
+        />
       </TableCell>
     </TableRow>
     <TableRow>
       <TableHead class="align-top pt-3"> Description </TableHead>
       <TableCell>
-        <AppInPlaceEditTextarea v-model="singleProject.description" @commit="handleProjectUpdate('description')" />
+        <AppInPlaceEditTextarea
+          v-model="singleProject.description"
+          @commit="handleProjectUpdate('description')"
+        />
       </TableCell>
     </TableRow>
     <TableRow>
@@ -68,8 +70,17 @@ const collabs = await getProfilesByIds(singleProject.value?.collaborators || [])
             v-for="collaborator in collabs"
             :key="collaborator.id"
           >
-            <RouterLink class="w-full h-full flex items-center justify-center" :to="{ name: '/users/[username]', params: { username: collaborator.username } }">
-              <AvatarImage :src="collaborator.avatar_url || ''" :alt="collaborator.full_name" />
+            <RouterLink
+              class="w-full h-full flex items-center justify-center"
+              :to="{
+                name: '/users/[username]',
+                params: { username: collaborator.username },
+              }"
+            >
+              <AvatarImage
+                :src="collaborator.avatar_url || ''"
+                :alt="collaborator.full_name"
+              />
               <AvatarFallback> </AvatarFallback>
             </RouterLink>
           </Avatar>
@@ -96,17 +107,15 @@ const collabs = await getProfilesByIds(singleProject.value?.collaborators || [])
           <TableBody>
             <TableRow v-for="task in singleProject.tasks" :key="task.id">
               <TableCell>
-                <RouterLink 
-                class="text-left block hover:underline hover:bg-muted p-4"
-                :to="{ name: '/tasks/[id]', params: { id: task.id } }">
+                <RouterLink
+                  class="text-left block hover:underline hover:bg-muted p-4"
+                  :to="{ name: '/tasks/[id]', params: { id: task.id } }"
+                >
                   {{ task.name }}
                 </RouterLink>
               </TableCell>
               <TableCell>
-                <AppInPlaceEditStatus
-                  v-model="task.status"
-                  readonly
-                />
+                <AppInPlaceEditStatus v-model="task.status" readonly />
               </TableCell>
               <TableCell> {{ task.due_date }} </TableCell>
             </TableRow>
